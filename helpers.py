@@ -1,8 +1,10 @@
 from math import *
 
 
-def is_prime(whole_number):  # Returns True if whole_number is prime
+def is_prime(whole_number):
+    # Returns True if whole_number is prime and False if not prime
     divisor = 3
+
     if whole_number < 2 or whole_number % 2 == 0:
         return False
     else:
@@ -15,4 +17,7 @@ def is_prime(whole_number):  # Returns True if whole_number is prime
             return False
 
 
-print(is_prime(119239))
+def sort(given_array, order):
+
+    if len(given_array) == 0:
+        return
