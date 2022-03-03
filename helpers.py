@@ -57,6 +57,15 @@ def find_min_max(list_of_items, min_or_max):
         raise ValueError("Second argument must be \"min\" or \"max\"")
 
 
+def sort(list_of_items, order):
+    # Function will return a given list in an ordered list either acending or decending
+    # The flag variable remains False until the list has finished sorting
+
+    flag = False
+    while flag = False:
+        for value in list_of_items:
+            if value
+
 if find_min_max([9, 33, 14, 5, 0], "min") == 0:
     print("Passed find_min_max", find_min_max([9, 33, 14, 5, 0], "min"))
 else:
