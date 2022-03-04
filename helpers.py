@@ -1,4 +1,4 @@
-from math import *
+from math import sqrt
 
 
 def is_prime(whole_number):
