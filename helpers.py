@@ -21,3 +21,12 @@ def sort(given_array, order):
 
     if len(given_array) == 0:
         return
+
+x = "askljf"
+try:
+    int(x)
+except Exception as e:
+    print(e)
+    # print("Variable x is a string and cannot be converted to an integer.")
+
+print("End")
