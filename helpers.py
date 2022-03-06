@@ -62,9 +62,9 @@ def sort(list_of_items, order):
     # The flag variable remains False until the list has finished sorting
 
     flag = False
-    while flag = False:
+    while flag == False:
         for value in list_of_items:
-            if value
+             if value:
 
 if find_min_max([9, 33, 14, 5, 0], "min") == 0:
     print("Passed find_min_max", find_min_max([9, 33, 14, 5, 0], "min"))
@@ -77,7 +77,17 @@ else:
     print("Failed find_min_max", find_min_max([9, 33, 14, 5, 0], "max"))
 
 
-# def sort(given_array, order):
-#
-#     if len(given_array) == 0:
-#         return
+def sum(list_of_items):
+    sum = 0
+    for value in list_of_items:
+        sum += value
+    return sum
+
+def factorial(whole_number):
+    sum = 0
+    accumulator = 1
+    generate = whole_number
+    while whole_number:
+        sum = whole_number
+        whole_number -= -1
+print(sum([1,2,3,4,5,6]))
