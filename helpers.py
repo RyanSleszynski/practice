@@ -11,7 +11,7 @@ def is_prime(whole_number):
     elif whole_number == 2:
         return True
     else:
-        while whole_number % divisor != 0 and divisor < sqrt(whole_number):
+        while not whole_number % divisor == 0 and divisor < sqrt(whole_number):
             divisor += 2
             print(divisor)
         if divisor >= sqrt(whole_number):
@@ -106,3 +106,8 @@ def factorial(whole_number):
         sum = whole_number
         whole_number -= -1
 print(sum([1,2,3,4,5,6]))
+
+def sqroot(positive_integer):
+    return positive_integer ** (1/2)
+
+print(sqroot(4))
