@@ -5,15 +5,13 @@ def is_prime(whole_number):
     # Returns True if whole_number is prime and False if not prime
     divisor = 3
 
-    # Checks for special cases and for simple input i.e. divisible by 2 or 5
     if whole_number < 2 or whole_number % 2 == 0 and whole_number != 2 or whole_number % 5 == 0:
         return False
     elif whole_number == 2:
         return True
     else:
-        while not whole_number % divisor == 0 and divisor < sqrt(whole_number):
+        while whole_number % divisor != 0 and divisor < sqrt(whole_number):
             divisor += 2
-            print(divisor)
         if divisor >= sqrt(whole_number):
             return True
         else:
@@ -26,7 +24,7 @@ def find_min_max(list_of_items, min_or_max):
     # A for loop and a while loop are used to show possibility of either returning correct results
     index = 1
     if len(list_of_items) == 0:
-        print("Null set has no min or max")
+        raise ValueError("Null set has no min or max")
 
     elif len(list_of_items) == 1:
         return list_of_items[0]
@@ -62,23 +60,22 @@ def sort(list_of_items, order):
     # Function will return a given list in an ordered list either ascending or descending
     # The flag variable remains False until the list has finished sorting
 
-    flag = False
     if order == "ascending" or order == "asc":
-
-        while flag == False:
-            index = 1
-            for value in list_of_items:
-                if value > list_of_items[index] and index < len(list_of_items):
-                    list_of_items[index - 1] = list_of_items[index - 1] ^ list_of_items[index]
-                    list_of_items[index - 1] = list_of_items[index - 1] ^ list_of_items[index]
-                    list_of_items[index] = list_of_items[index - 1] ^ list_of_items[index]
-                    index += 1
-                    flag = False
-                else:
-                    flag = True
+        sorted_flag = False
+        while sorted_flag == False:
+            index = 0
+            change_counter = 0
+            while index < len(list_of_items) - 1:
+                if list_of_items[index] > list_of_items[index + 1]:
+                    list_of_items[index] = list_of_items[index] ^ list_of_items[index + 1]
+                    list_of_items[index + 1] = list_of_items[index] ^ list_of_items[index + 1]
+                    list_of_items[index] = list_of_items[index] ^ list_of_items[index + 1]
+                    change_counter += 1
                 index += 1
+            if change_counter == 0:
+                sorted_flag = True
 
-        return list_of_items
+    return list_of_items
 
 
 def sum(list_of_items):
@@ -89,11 +86,11 @@ def sum(list_of_items):
 
 
 def factorial(whole_number):
+    # This solution begins with the number given then multiplies
+    # by one less than the previous multiple
     accumulator = whole_number
-    multiple = whole_number - 1
-    while multiple > 0 :
+    for multiple in range(whole_number - 1, 1, -1):
         accumulator *= multiple
-        multiple -= 1
     return accumulator
 
 
@@ -165,7 +162,7 @@ if __name__ == "__main__":
     else:
         print("Failed is_prime(2)")
 
-    if not is_prime(25):
+    if is_prime(25) == False:
         print("Passed is_prime(25)")
     else:
         print("Failed is_prime(25)")
@@ -205,3 +202,5 @@ if __name__ == "__main__":
         print("Passed sort")
     else:
         print("Failed sort", sort([5, 4, 3, 2, 1], "asc"))
+
+    print("End")
