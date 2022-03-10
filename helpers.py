@@ -68,28 +68,39 @@ def sort(list_of_items, order):
     # The flag variable remains False until the list has finished sorting
 
     flag = False
-    # while flag == False:
-    #     for value in list_of_items:
-    #          if value:
+    if order == "ascending" or order == "asc":
+
+        while flag == False:
+            index = 1
+            for value in list_of_items:
+                if value > list_of_items[index] and index < len(list_of_items):
+                    list_of_items[index - 1] = list_of_items[index - 1] ^ list_of_items[index]
+                    list_of_items[index - 1] = list_of_items[index - 1] ^ list_of_items[index]
+                    list_of_items[index] = list_of_items[index - 1] ^ list_of_items[index]
+                    index += 1
+                    flag = False
+                else:
+                    flag = True
+                index += 1
+
+        return list_of_items
 
 
 def sum(list_of_items):
-    sum = 0
+    accumulator = 0
     for value in list_of_items:
-        sum += value
-    return sum
+        accumulator += value
+    return accumulator
+
 
 def factorial(whole_number):
-    sum = 0
-    accumulator = 1
-    generate = whole_number
-    while whole_number:
-        sum = whole_number
-        whole_number -= -1
+    accumulator = whole_number
+    multiple = whole_number - 1
+    while multiple > 0 :
+        accumulator *= multiple
+        multiple -= 1
+    return accumulator
 
-
-def sqroot(positive_integer):
-    return positive_integer ** (1/2)
 
 def sort_using_min_max(list_of_items, order):
     # In this function, you are given a list of comparable objects/items such as numbers
@@ -98,25 +109,25 @@ def sort_using_min_max(list_of_items, order):
     index = 0
 
     if order == "ascending" or order == "asc":
-        acending = []
+        ascending = []
         while len(list_of_items) != 0:                         # each iteration passes a new list with the min removed
             minimum = find_min_max(list_of_items, "min")       # finds the min in the given list
-            acending.insert(index, minimum)                    # adds the min to the new list
+            ascending.insert(index, minimum)                    # adds the min to the new list
             list_of_items.remove(minimum)                      # removes the min from the given list
             index += 1
-        return acending
+        return ascending
 
     elif order == "descending" or order == "desc":
-        decending = []
+        descending = []
         while len(list_of_items) != 0:                         # same concept applied above to this loop as well
             maximum = find_min_max(list_of_items, "max")
-            decending.insert(index, maximum)
+            descending.insert(index, maximum)
             list_of_items.remove(maximum)
             index += 1
-        return decending
+        return descending
 
     else:
-        return "Invalid Request"
+        raise ValueError("order parameter must be asc or desc")
 
 
 def is_sorted(list_of_elements, order):
@@ -139,7 +150,7 @@ def is_sorted(list_of_elements, order):
 
 if __name__ == "__main__":
     print(is_sorted([1, 2, 3, 4, 5], "asc"))
-    print(is_sorted([2, 5, 1 ,6], "desc"))
+    print(is_sorted([2, 5, 1, 6], "desc"))
     print(is_sorted([6, 5, 2, 1], "desc"))
 
     # Test Cases for find_min_max
@@ -163,3 +174,39 @@ if __name__ == "__main__":
         print("Passed is_prime(25)")
     else:
         print("Failed is_prime(25)")
+
+    # Test Cases for factorial
+    if factorial(3) == 6:
+        print("Passed factorial")
+    else:
+        print("Failed factorial", factorial(3))
+
+    if factorial(5) == 120:
+        print("Passed factorial")
+    else:
+        print("Failed factorial", factorial(5))
+
+    if factorial(7) == 5040:
+        print("Passed factorial")
+    else:
+        print("Failed factorial", factorial(7))
+
+    if factorial(1) == 1:
+        print("Passed factorial")
+    else:
+        print("Failed factorial", factorial(1))
+
+    if factorial(0) == 0:
+        print("Passed factorial")
+    else:
+        print("Failed factorial", factorial(0))
+
+    if sort([11, 5, 12, 6], "asc") == [5, 6, 11, 12]:
+        print("Passed sort")
+    else:
+        print("Failed sort", sort([11, 5, 12, 6], "asc"))
+
+    if sort([5, 4, 3, 2, 1], "asc") == [1, 2, 3, 4, 5]:
+        print("Passed sort")
+    else:
+        print("Failed sort", sort([5, 4, 3, 2, 1], "asc"))
