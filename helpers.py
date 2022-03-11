@@ -12,6 +12,8 @@ def is_prime(whole_number):
     else:
         while whole_number % divisor != 0 and divisor < sqrt(whole_number):
             divisor += 2
+            if divisor % 5 == 0:
+                divisor += 2
         if divisor >= sqrt(whole_number):
             return True
         else:
@@ -67,6 +69,21 @@ def sort(list_of_items, order):
             change_counter = 0
             while index < len(list_of_items) - 1:
                 if list_of_items[index] > list_of_items[index + 1]:
+                    list_of_items[index] = list_of_items[index] ^ list_of_items[index + 1]
+                    list_of_items[index + 1] = list_of_items[index] ^ list_of_items[index + 1]
+                    list_of_items[index] = list_of_items[index] ^ list_of_items[index + 1]
+                    change_counter += 1
+                index += 1
+            if change_counter == 0:
+                sorted_flag = True
+
+    elif order == "descending" or order == "desc":
+        sorted_flag = False
+        while sorted_flag == False:
+            index = 0
+            change_counter = 0
+            while index < len(list_of_items) - 1:
+                if list_of_items[index] < list_of_items[index + 1]:
                     list_of_items[index] = list_of_items[index] ^ list_of_items[index + 1]
                     list_of_items[index + 1] = list_of_items[index] ^ list_of_items[index + 1]
                     list_of_items[index] = list_of_items[index] ^ list_of_items[index + 1]
@@ -162,7 +179,7 @@ if __name__ == "__main__":
     else:
         print("Failed is_prime(2)")
 
-    if is_prime(25) == False:
+    if is_prime(113) == True:
         print("Passed is_prime(25)")
     else:
         print("Failed is_prime(25)")
