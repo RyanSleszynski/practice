@@ -146,7 +146,8 @@ def is_sorted(list_of_elements, order):
             if list_of_elements[index] > list_of_elements[index + 1]:
                 return False
             else:
-                return True
+                index += 1
+        return True
 
     if order == "descending" or order == "desc":
         index = 0
@@ -154,7 +155,8 @@ def is_sorted(list_of_elements, order):
             if list_of_elements[index] < list_of_elements[index + 1]:
                 return False
             else:
-                return True
+                index += 1
+        return True
 
 
 if __name__ == "__main__":
