@@ -39,18 +39,11 @@ def find_min_max(list_of_items, min_or_max):
                 minimum = index_value
         return minimum
 
-        # While loop below replaces the stored value of minimum if list_of_items[index] is less than minimum
-        # while index < len(list_of_items):
-        #     if minimum > list_of_items[index]:
-        #         minimum = list_of_items[index]
-        #     index += 1
-        # return minimum
-
     elif min_or_max == "max":
         maximum = list_of_items[0]
-        while index < len(list_of_items):
-            if maximum < list_of_items[index]:
-                maximum = list_of_items[index]
+        for index_value in list_of_items:
+            if maximum < index_value:
+                maximum = index_value
             index += 1
         return maximum
 
@@ -140,31 +133,42 @@ def sort_using_min_max(list_of_items, order):
 
 
 def is_sorted(list_of_elements, order):
+
     if order == "ascending" or order == "asc":
-        index = 0
-        while index < len(list_of_elements):
-            if list_of_elements[index] > list_of_elements[index + 1]:
+        comparing_list = list_of_elements[1:]
+        for first, second in zip(list_of_elements, comparing_list):
+            if first > second:
                 return False
-            else:
-                index += 1
         return True
+        # index = 0
+        # while index < len(list_of_elements) - 1:
+        #     if list_of_elements[index] > list_of_elements[index + 1]:
+        #         return False
+        #     else:
+        #         index += 1
+        # return True
 
     if order == "descending" or order == "desc":
-        index = 0
-        while index < len(list_of_elements):
-            if list_of_elements[index] < list_of_elements[index + 1]:
+        comparing_list = list_of_elements[1:]
+        for first, second in zip(list_of_elements, comparing_list):
+            if first < second:
                 return False
-            else:
-                index += 1
         return True
+        # index = 0
+        # while index < len(list_of_elements) - 1:
+        #     if list_of_elements[index] < list_of_elements[index + 1]:
+        #         return False
+        #     else:
+        #         index += 1
+        # return True
 
 
 if __name__ == "__main__":
-    print(is_sorted([1, 2, 3, 4, 5], "asc"))
+    print(is_sorted([1, 2, 3, 4, 5, 4], "asc"))
     print(is_sorted([2, 5, 1, 6], "desc"))
     print(is_sorted([6, 5, 2, 1], "desc"))
 
-    # Test Cases for find_min_max
+    # Test Cases for find_min_max--------------------------------------------
     if find_min_max([9, 33, 14, 5, 0], "min") == 0:
         print("Passed find_min_max", find_min_max([9, 33, 14, 5, 0], "min"))
     else:
@@ -175,7 +179,7 @@ if __name__ == "__main__":
     else:
         print("Failed find_min_max", find_min_max([9, 33, 14, 5, 0], "max"))
 
-    # Test Cases for is_prime
+    # Test Cases for is_prime-------------------------------------------------
     if is_prime(2):
         print("Passed is_prime(2)")
     else:
@@ -186,7 +190,7 @@ if __name__ == "__main__":
     else:
         print("Failed is_prime(25)")
 
-    # Test Cases for factorial
+    # Test Cases for factorial-------------------------------------------------
     if factorial(3) == 6:
         print("Passed factorial")
     else:
@@ -212,6 +216,7 @@ if __name__ == "__main__":
     else:
         print("Failed factorial", factorial(0))
 
+    # Test cases for sort--------------------------------------------------
     if sort([11, 5, 12, 6], "asc") == [5, 6, 11, 12]:
         print("Passed sort")
     else:
