@@ -14,7 +14,7 @@ def is_prime(whole_number):
             divisor += 2
             if divisor % 5 == 0:
                 divisor += 2
-        if divisor >= sqrt(whole_number):
+        if divisor > sqrt(whole_number):
             return True
         else:
             return False
@@ -172,9 +172,6 @@ def is_sorted(list_of_elements, order):
 
 
 if __name__ == "__main__":
-    print(is_sorted([1, 2, 3, 4, 5, 4], "asc"))
-    print(is_sorted([2, 5, 1, 6], "desc"))
-    print(is_sorted([6, 5, 2, 1], "desc"))
 
     # Test Cases for find_min_max--------------------------------------------
     if find_min_max([9, 33, 14, 5, 0], "min") == 0:
@@ -188,12 +185,12 @@ if __name__ == "__main__":
         print("Failed find_min_max", find_min_max([9, 33, 14, 5, 0], "max"))
 
     # Test Cases for is_prime-------------------------------------------------
-    if is_prime(2):
+    if not is_prime(9):
         print("Passed is_prime(2)")
     else:
         print("Failed is_prime(2)")
 
-    if is_prime(113) == True:
+    if is_prime(113):
         print("Passed is_prime(25)")
     else:
         print("Failed is_prime(25)")
