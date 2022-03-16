@@ -20,35 +20,20 @@ def is_prime(whole_number):
             return False
 
 
-def find_min_max(list_of_items, min_or_max):
-    # This function will return a minimum number or maximum number depending on the second argument
-    # Errors will be raised if list_of_items is null or if min_or_max is NOT "min" or "max"
-    # A for loop and a while loop are used to show possibility of either returning correct results
-    index = 1
-    if len(list_of_items) == 0:
-        raise ValueError("Null set has no min or max")
+def sum(list_of_items):
+    accumulator = 0
+    for value in list_of_items:
+        accumulator += value
+    return accumulator
 
-    elif len(list_of_items) == 1:
-        return list_of_items[0]
 
-    elif min_or_max == "min":
-        minimum = list_of_items[0]
-        # For loop replaces the stored value of minimum if index_value is less than minimum
-        for index_value in list_of_items:
-            if minimum > index_value:
-                minimum = index_value
-        return minimum
-
-    elif min_or_max == "max":
-        maximum = list_of_items[0]
-        for index_value in list_of_items:
-            if maximum < index_value:
-                maximum = index_value
-            index += 1
-        return maximum
-
-    else:
-        raise ValueError("Second argument must be \"min\" or \"max\"")
+def factorial(whole_number):
+    # This solution begins with the number given then multiplies
+    # by one less than the previous multiple
+    accumulator = whole_number
+    for multiple in range(whole_number - 1, 1, -1):
+        accumulator *= multiple
+    return accumulator
 
 
 def sort(list_of_items, order):
@@ -86,20 +71,35 @@ def sort(list_of_items, order):
     return list_of_items
 
 
-def sum(list_of_items):
-    accumulator = 0
-    for value in list_of_items:
-        accumulator += value
-    return accumulator
+def find_min_max(list_of_items, min_or_max):
+    # This function will return a minimum number or maximum number depending on the second argument
+    # Errors will be raised if list_of_items is null or if min_or_max is NOT "min" or "max"
+    # A for loop and a while loop are used to show possibility of either returning correct results
+    index = 1
+    if len(list_of_items) == 0:
+        raise ValueError("Null set has no min or max")
 
+    elif len(list_of_items) == 1:
+        return list_of_items[0]
 
-def factorial(whole_number):
-    # This solution begins with the number given then multiplies
-    # by one less than the previous multiple
-    accumulator = whole_number
-    for multiple in range(whole_number - 1, 1, -1):
-        accumulator *= multiple
-    return accumulator
+    elif min_or_max == "min":
+        minimum = list_of_items[0]
+        # For loop replaces the stored value of minimum if index_value is less than minimum
+        for index_value in list_of_items:
+            if minimum > index_value:
+                minimum = index_value
+        return minimum
+
+    elif min_or_max == "max":
+        maximum = list_of_items[0]
+        for index_value in list_of_items:
+            if maximum < index_value:
+                maximum = index_value
+            index += 1
+        return maximum
+
+    else:
+        raise ValueError("Second argument must be \"min\" or \"max\"")
 
 
 def sort_using_min_max(list_of_items, order):
@@ -130,6 +130,8 @@ def sort_using_min_max(list_of_items, order):
 
 
 def is_sorted_while(list_of_elements, order):
+    # This function is faster than the is_sorted function which uses for loops instead of while
+    # when the passed list is not sorted.
     if order == "ascending" or order == "asc":
         index = 0
         while index < len(list_of_elements) - 1:

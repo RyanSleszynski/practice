@@ -27,7 +27,7 @@ for item_list, item_order in zip(input_list, input_list_order):  # run for all t
         total_time_taken_current_trial = total_time_taken_current_trial + time_taken_current_trial
     total_time_taken = total_time_taken + total_time_taken_current_trial
 
-print('     Average time taken by sort using for:', (total_time_taken) / number_of_trials)
+print('Average time taken by sort using bubble sort technique:', (total_time_taken) / number_of_trials)
 
 # Time taken in sort_using_min_max
 # we will use the same setup and input list as recursion so the comparison is fair
@@ -42,7 +42,7 @@ for item_list, item_order in zip(input_list, input_list_order):  # run for all t
         total_time_taken_current_trial = total_time_taken_current_trial + time_taken_current_trial
     total_time_taken = total_time_taken + total_time_taken_current_trial
 
-print('     Average time taken by sort_using_min_max:', (total_time_taken) / number_of_trials)
+print('Average time taken by sort_using_min_max:', (total_time_taken) / number_of_trials)
 
 # ---------------------is_sorted trials with sorted input below--------------------------------
 
@@ -69,7 +69,7 @@ for item_list, item_order in zip(input_list, input_list_order):  # run for all t
         total_time_taken_current_trial = total_time_taken_current_trial + time_taken_current_trial
     total_time_taken = total_time_taken + total_time_taken_current_trial
 
-print('     Average time taken by is_sorted using for:', (total_time_taken) / number_of_trials)
+print('Average time taken by is_sorted using for:', (total_time_taken) / number_of_trials)
 
 # Time taken in is_sorted_while
 # we will use the same setup and input list as recursion so the comparison is fair
@@ -84,7 +84,8 @@ for item_list, item_order in zip(input_list, input_list_order):  # run for all t
         total_time_taken_current_trial = total_time_taken_current_trial + time_taken_current_trial
     total_time_taken = total_time_taken + total_time_taken_current_trial
 
-print('     Average time taken by is_sorted using while:', (total_time_taken) / number_of_trials)
+print("Average time taken by is_sorted using while:", (total_time_taken) / number_of_trials)
+
 
 # ------------------------is_sorted trials with random input below----------------------------
 
@@ -111,7 +112,7 @@ for item_list, item_order in zip(input_list, input_list_order):  # run for all t
         total_time_taken_current_trial = total_time_taken_current_trial + time_taken_current_trial
     total_time_taken = total_time_taken + total_time_taken_current_trial
 
-print('     Average time taken by is_sorted using for:', (total_time_taken) / number_of_trials)
+print('Average time taken by is_sorted using for:', (total_time_taken) / number_of_trials)
 
 # Time taken in is_sorted_while
 # we will use the same setup and input list as recursion so the comparison is fair
@@ -126,7 +127,7 @@ for item_list, item_order in zip(input_list, input_list_order):  # run for all t
         total_time_taken_current_trial = total_time_taken_current_trial + time_taken_current_trial
     total_time_taken = total_time_taken + total_time_taken_current_trial
 
-print('     Average time taken by is_sorted using while:', (total_time_taken) / number_of_trials)
+print('Average time taken by is_sorted using while:', (total_time_taken) / number_of_trials)
 
 # ------------------------------------------------------------------------------------------------
 
