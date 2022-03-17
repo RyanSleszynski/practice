@@ -54,6 +54,7 @@ def find_min_max(list_of_items, min_or_max):
 def sort(list_of_items, order):
     # Function will return a given list in an ordered list either ascending or descending
     # The flag variable remains False until the list has finished sorting
+    # This is a bubble sort method
     if order == "ascending" or order == "asc":
         sorted_flag = False
         while sorted_flag == False:
@@ -90,6 +91,14 @@ def sum(list_of_items):
     accumulator = 0
     for value in list_of_items:
         accumulator += value
+    return accumulator
+
+
+def factorial_while(whole_number):
+    accumulator = 1
+    while whole_number > 0:
+        accumulator *= whole_number
+        whole_number -= 1
     return accumulator
 
 
