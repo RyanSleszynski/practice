@@ -14,10 +14,61 @@ def is_prime(whole_number):
             divisor += 2
             if divisor % 5 == 0:
                 divisor += 2
-        if divisor >= sqrt(whole_number):
+        if divisor > sqrt(whole_number):
             return True
         else:
             return False
+
+
+def sum(list_of_items):
+    accumulator = 0
+    for value in list_of_items:
+        accumulator += value
+    return accumulator
+
+
+def factorial(whole_number):
+    # This solution begins with the number given then multiplies
+    # by one less than the previous multiple
+    accumulator = whole_number
+    for multiple in range(whole_number - 1, 1, -1):
+        accumulator *= multiple
+    return accumulator
+
+
+def sort(list_of_items, order):
+    # Function will return a given list in an ordered list either ascending or descending
+    # The flag variable remains False until the list has finished sorting
+    if order == "ascending" or order == "asc":
+        sorted_flag = False
+        while sorted_flag == False:
+            index = 0
+            change_counter = 0
+            while index < len(list_of_items) - 1:
+                if list_of_items[index] > list_of_items[index + 1]:
+                    list_of_items[index] = list_of_items[index] ^ list_of_items[index + 1]
+                    list_of_items[index + 1] = list_of_items[index] ^ list_of_items[index + 1]
+                    list_of_items[index] = list_of_items[index] ^ list_of_items[index + 1]
+                    change_counter += 1
+                index += 1
+            if change_counter == 0:
+                sorted_flag = True
+
+    elif order == "descending" or order == "desc":
+        sorted_flag = False
+        while sorted_flag == False:
+            index = 0
+            change_counter = 0
+            while index < len(list_of_items) - 1:
+                if list_of_items[index] < list_of_items[index + 1]:
+                    list_of_items[index] = list_of_items[index] ^ list_of_items[index + 1]
+                    list_of_items[index + 1] = list_of_items[index] ^ list_of_items[index + 1]
+                    list_of_items[index] = list_of_items[index] ^ list_of_items[index + 1]
+                    change_counter += 1
+                index += 1
+            if change_counter == 0:
+                sorted_flag = True
+    return list_of_items
 
 
 def find_min_max(list_of_items, min_or_max):
@@ -51,66 +102,6 @@ def find_min_max(list_of_items, min_or_max):
         raise ValueError("Second argument must be \"min\" or \"max\"")
 
 
-def sort(list_of_items, order):
-    # Function will return a given list in an ordered list either ascending or descending
-    # The flag variable remains False until the list has finished sorting
-    # This is a bubble sort method
-    if order == "ascending" or order == "asc":
-        sorted_flag = False
-        while sorted_flag == False:
-            index = 0
-            change_counter = 0
-            while index < len(list_of_items) - 1:
-                if list_of_items[index] > list_of_items[index + 1]:
-                    list_of_items[index] = list_of_items[index] ^ list_of_items[index + 1]
-                    list_of_items[index + 1] = list_of_items[index] ^ list_of_items[index + 1]
-                    list_of_items[index] = list_of_items[index] ^ list_of_items[index + 1]
-                    change_counter += 1
-                index += 1
-            if change_counter == 0:
-                sorted_flag = True
-
-    elif order == "descending" or order == "desc":
-        sorted_flag = False
-        while sorted_flag == False:
-            index = 0
-            change_counter = 0
-            while index < len(list_of_items) - 1:
-                if list_of_items[index] < list_of_items[index + 1]:
-                    list_of_items[index] = list_of_items[index] ^ list_of_items[index + 1]
-                    list_of_items[index + 1] = list_of_items[index] ^ list_of_items[index + 1]
-                    list_of_items[index] = list_of_items[index] ^ list_of_items[index + 1]
-                    change_counter += 1
-                index += 1
-            if change_counter == 0:
-                sorted_flag = True
-    return list_of_items
-
-
-def sum(list_of_items):
-    accumulator = 0
-    for value in list_of_items:
-        accumulator += value
-    return accumulator
-
-
-def factorial_while(whole_number):
-    accumulator = 1
-    while whole_number > 0:
-        accumulator *= whole_number
-        whole_number -= 1
-    return accumulator
-
-
-def factorial(whole_number):
-    # This solution begins with the number given then multiplies
-    # by one less than the previous multiple
-    accumulator = whole_number
-    for multiple in range(whole_number - 1, 1, -1):
-        accumulator *= multiple
-    return accumulator
-
-
 def sort_using_min_max(list_of_items, order):
     # This function is about 22 times faster on average than the sort function
     # This function takes the maximum or minimum in a list then adds it to a new list to be returned
@@ -139,6 +130,8 @@ def sort_using_min_max(list_of_items, order):
 
 
 def is_sorted_while(list_of_elements, order):
+    # This function is faster than the is_sorted function which uses for loops instead of while
+    # when the passed list is not sorted.
     if order == "ascending" or order == "asc":
         index = 0
         while index < len(list_of_elements) - 1:
@@ -179,9 +172,6 @@ def is_sorted(list_of_elements, order):
 
 
 if __name__ == "__main__":
-    print(is_sorted([1, 2, 3, 4, 5, 4], "asc"))
-    print(is_sorted([2, 5, 1, 6], "desc"))
-    print(is_sorted([6, 5, 2, 1], "desc"))
 
     # Test Cases for find_min_max--------------------------------------------
     if find_min_max([9, 33, 14, 5, 0], "min") == 0:
@@ -195,12 +185,12 @@ if __name__ == "__main__":
         print("Failed find_min_max", find_min_max([9, 33, 14, 5, 0], "max"))
 
     # Test Cases for is_prime-------------------------------------------------
-    if is_prime(2):
+    if not is_prime(9):
         print("Passed is_prime(2)")
     else:
         print("Failed is_prime(2)")
 
-    if is_prime(113) == True:
+    if is_prime(113):
         print("Passed is_prime(25)")
     else:
         print("Failed is_prime(25)")
