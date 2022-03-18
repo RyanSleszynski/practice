@@ -20,7 +20,7 @@ def is_prime(whole_number):
             return False
 
 
-def sum(list_of_items):
+def my_sum(list_of_items):
     accumulator = 0
     for value in list_of_items:
         accumulator += value
