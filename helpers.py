@@ -183,8 +183,59 @@ def is_sorted(list_of_elements, order):
         return True
 
 
+def sum_of_numbers(number_as_string: str):
+    accumulator = 0
+    list_of_numbers = list(number_as_string)
+    for number in list_of_numbers:
+        accumulator += int(number)
+    return accumulator
+
+def recursive_sum_helper(list):
+    if len(list) == 0:
+        return 0
+    elif list[0] == '.':
+        return 0 + int(recursive_sum_helper(list[1:]))
+    else:
+        return int(list[0]) + int(recursive_sum_helper(list[1:]))
+
+def recursive_sum(number):
+    number = str(number)
+    number_as_list = list(number)
+    return recursive_sum_helper(number_as_list)
+
+
+def repeated_items(list):
+    output_list = []
+    list_index = 0
+    compare_index = 1
+    while list_index < len(list) - 2:
+        while compare_index < len(list) - 1 and list[list_index] != list[compare_index]:
+            compare_index += 1
+        if list[list_index] == list[compare_index]:
+            output_list.append(list[list_index])
+        list_index += 1
+        compare_index = list_index + 1
+    return output_list
+
+def common_elements(list_1: list, list_2: list):
+    list_3 = []
+    index_list_1 = 0
+    while index_list_1 < len(list_1) - 1:
+        element_1 = list_1[index_list_1]
+        index_list_2 = 0
+        while index_list_2 < len(list_2):
+            element_2 = list_2[index_list_2]
+            if element_1 == element_2:
+                list_3.append(element_1)
+                break
+            index_list_2 += 1
+
+        index_list_1 += 1
+    return list_3
+
 if __name__ == "__main__":
 
+    print(recursive_sum(121534.51))
     # Test Cases for find_min_max--------------------------------------------
     if find_min_max([9, 33, 14, 5, 0], "min") == 0:
         print("Passed find_min_max", find_min_max([9, 33, 14, 5, 0], "min"))
