@@ -185,9 +185,10 @@ def is_sorted(list_of_elements, order):
 
 def new_bubble_sort(list):
     maximum_right_index = len(list) - 1
-    while not is_sorted_while(list, "asc") and maximum_right_index != 0:
-        left_index = 0
-        right_index =1
+    minimum_left_index = 0
+    while not is_sorted_while(list, "asc") and maximum_right_index != minimum_left_index:
+        left_index = minimum_left_index
+        right_index = left_index + 1
         while right_index <= maximum_right_index:
             if list[left_index] > list[right_index]:
                 list[left_index] = list[left_index] ^ list[right_index]
@@ -196,6 +197,16 @@ def new_bubble_sort(list):
             left_index += 1
             right_index += 1
         maximum_right_index -= 1
+        right_index = maximum_right_index
+        left_index = right_index - 1
+        while left_index >= minimum_left_index:
+            if list[left_index] > list[right_index]:
+                list[right_index] = list[left_index] ^ list[right_index]
+                list[left_index] = list[left_index] ^ list[right_index]
+                list[right_index] = list[left_index] ^ list[right_index]
+            left_index -= 1
+            right_index -= 1
+        minimum_left_index +=1
     return list
 
 if __name__ == "__main__":
@@ -259,5 +270,5 @@ if __name__ == "__main__":
     else:
         print("Failed sort", bubble_sort([5, 4, 3, 2, 1], "asc"))
 
-    print(new_bubble_sort([2,1,23,4,7,6,40]))
+    print(new_bubble_sort([2,1,23,4,7,6,5,40,15,31,26,29]))
     print("End")
