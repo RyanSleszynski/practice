@@ -20,7 +20,7 @@ def is_prime(whole_number):
             return False
 
 
-def sum(list_of_items):
+def my_sum(list_of_items):
     accumulator = 0
     for value in list_of_items:
         accumulator += value
@@ -36,7 +36,7 @@ def factorial(whole_number):
     return accumulator
 
 
-def sort(list_of_items, order):
+def bubble_sort(list_of_items, order):
     # Function will return a given list in an ordered list either ascending or descending
     # The flag variable remains False until the list has finished sorting
     if order == "ascending" or order == "asc":
@@ -171,6 +171,21 @@ def is_sorted(list_of_elements, order):
         return True
 
 
+def new_bubble_sort(list):
+    maximum_right_index = len(list) - 1
+    while not is_sorted_while(list, "asc") and maximum_right_index != 0:
+        left_index = 0
+        right_index =1
+        while right_index <= maximum_right_index:
+            if list[left_index] > list[right_index]:
+                list[left_index] = list[left_index] ^ list[right_index]
+                list[right_index] = list[left_index] ^ list[right_index]
+                list[left_index] = list[left_index] ^ list[right_index]
+            left_index += 1
+            right_index += 1
+        maximum_right_index -= 1
+    return list
+
 if __name__ == "__main__":
 
     # Test Cases for find_min_max--------------------------------------------
@@ -222,14 +237,15 @@ if __name__ == "__main__":
         print("Failed factorial", factorial(0))
 
     # Test cases for sort--------------------------------------------------
-    if sort([11, 5, 12, 6], "asc") == [5, 6, 11, 12]:
+    if bubble_sort([11, 5, 12, 6], "asc") == [5, 6, 11, 12]:
         print("Passed sort")
     else:
-        print("Failed sort", sort([11, 5, 12, 6], "asc"))
+        print("Failed sort", bubble_sort([11, 5, 12, 6], "asc"))
 
-    if sort([5, 4, 3, 2, 1], "asc") == [1, 2, 3, 4, 5]:
+    if bubble_sort([5, 4, 3, 2, 1], "asc") == [1, 2, 3, 4, 5]:
         print("Passed sort")
     else:
-        print("Failed sort", sort([5, 4, 3, 2, 1], "asc"))
+        print("Failed sort", bubble_sort([5, 4, 3, 2, 1], "asc"))
 
+    print(new_bubble_sort([2,1,23,4,7,6,40]))
     print("End")
