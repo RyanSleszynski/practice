@@ -24,7 +24,7 @@ def is_prime(whole_number, divisor=3):
 
 
 if __name__ == "__main__":
-    if not is_prime(981433213):
+    if not is_prime(0):
         print("Passed is_prime recursive")
     else:
         print("Failed is_prime recursive")

@@ -48,7 +48,7 @@ def factorial(whole_number):
     return accumulator
 
 
-def sort(list_of_items, order):
+def bubble_sort(list_of_items, order):
     # Function will return a given list in an ordered list either ascending or descending
     # The flag variable remains False until the list has finished sorting
     if order == "ascending" or order == "asc":
@@ -183,59 +183,23 @@ def is_sorted(list_of_elements, order):
         return True
 
 
-def sum_of_numbers(number_as_string: str):
-    accumulator = 0
-    list_of_numbers = list(number_as_string)
-    for number in list_of_numbers:
-        accumulator += int(number)
-    return accumulator
-
-def recursive_sum_helper(list):
-    if len(list) == 0:
-        return 0
-    elif list[0] == '.':
-        return 0 + int(recursive_sum_helper(list[1:]))
-    else:
-        return int(list[0]) + int(recursive_sum_helper(list[1:]))
-
-def recursive_sum(number):
-    number = str(number)
-    number_as_list = list(number)
-    return recursive_sum_helper(number_as_list)
-
-
-def repeated_items(list):
-    output_list = []
-    list_index = 0
-    compare_index = 1
-    while list_index < len(list) - 2:
-        while compare_index < len(list) - 1 and list[list_index] != list[compare_index]:
-            compare_index += 1
-        if list[list_index] == list[compare_index]:
-            output_list.append(list[list_index])
-        list_index += 1
-        compare_index = list_index + 1
-    return output_list
-
-def common_elements(list_1: list, list_2: list):
-    list_3 = []
-    index_list_1 = 0
-    while index_list_1 < len(list_1) - 1:
-        element_1 = list_1[index_list_1]
-        index_list_2 = 0
-        while index_list_2 < len(list_2):
-            element_2 = list_2[index_list_2]
-            if element_1 == element_2:
-                list_3.append(element_1)
-                break
-            index_list_2 += 1
-
-        index_list_1 += 1
-    return list_3
+def new_bubble_sort(list):
+    maximum_right_index = len(list) - 1
+    while not is_sorted_while(list, "asc") and maximum_right_index != 0:
+        left_index = 0
+        right_index =1
+        while right_index <= maximum_right_index:
+            if list[left_index] > list[right_index]:
+                list[left_index] = list[left_index] ^ list[right_index]
+                list[right_index] = list[left_index] ^ list[right_index]
+                list[left_index] = list[left_index] ^ list[right_index]
+            left_index += 1
+            right_index += 1
+        maximum_right_index -= 1
+    return list
 
 if __name__ == "__main__":
 
-    print(recursive_sum(121534.51))
     # Test Cases for find_min_max--------------------------------------------
     if find_min_max([9, 33, 14, 5, 0], "min") == 0:
         print("Passed find_min_max", find_min_max([9, 33, 14, 5, 0], "min"))
@@ -285,14 +249,15 @@ if __name__ == "__main__":
         print("Failed factorial", factorial(0))
 
     # Test cases for sort--------------------------------------------------
-    if sort([11, 5, 12, 6], "asc") == [5, 6, 11, 12]:
+    if bubble_sort([11, 5, 12, 6], "asc") == [5, 6, 11, 12]:
         print("Passed sort")
     else:
-        print("Failed sort", sort([11, 5, 12, 6], "asc"))
+        print("Failed sort", bubble_sort([11, 5, 12, 6], "asc"))
 
-    if sort([5, 4, 3, 2, 1], "asc") == [1, 2, 3, 4, 5]:
+    if bubble_sort([5, 4, 3, 2, 1], "asc") == [1, 2, 3, 4, 5]:
         print("Passed sort")
     else:
-        print("Failed sort", sort([5, 4, 3, 2, 1], "asc"))
+        print("Failed sort", bubble_sort([5, 4, 3, 2, 1], "asc"))
 
+    print(new_bubble_sort([2,1,23,4,7,6,40]))
     print("End")
