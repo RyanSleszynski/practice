@@ -1,16 +1,4 @@
 from math import sqrt
-import time
-
-
-def wait(seconds=0):
-    waiting = True
-    current_time = time.time()
-    while waiting:
-        new_time = time.time()
-        if new_time >= current_time + seconds:
-            waiting = False
-        new_time = time.time()
-
 
 
 def is_prime(whole_number):
@@ -208,6 +196,7 @@ def new_bubble_sort(list):
             right_index -= 1
         minimum_left_index +=1
     return list
+
 
 if __name__ == "__main__":
 
