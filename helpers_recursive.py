@@ -23,8 +23,28 @@ def is_prime(whole_number, divisor=3):
             return False
 
 
+def reverse_recursive(L, index=0):
+    if index >= len(L) // 2:
+        return L
+    else:
+        L[index] = L[index] ^ L[(index * -1) - 1]
+        L[(index * -1) - 1] = L[index] ^ L[(index * -1) - 1]
+        L[index] = L[index] ^ L[(index * -1) - 1]
+        return reverse_recursive(L, index + 1)
+
+
+def palindrome_recursive(text):
+    if len(text) <= 1:
+        return True
+    else:
+        return text[0] == text[-1] and palindrome_recursive(text[1:-1])
+
+
 if __name__ == "__main__":
     if not is_prime(0):
         print("Passed is_prime recursive")
     else:
         print("Failed is_prime recursive")
+
+    text = 'racecar '
+    print(palindrome_recursive(text))
