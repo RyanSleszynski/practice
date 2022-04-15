@@ -198,7 +198,53 @@ def new_bubble_sort(list):
         maximum_right_index -= 1
     return list
 
+
+def combinations(list):
+    original_list = list[:]
+    temp_list = original_list[:]
+    list_size = len(list)
+    print(original_list)
+    combination_count = 1
+    while list_size >= 0:
+        ignored_index = 0
+        while ignored_index < len(temp_list):
+            print(temp_list[0:ignored_index] + temp_list[ignored_index+1:])
+            ignored_index += 1
+            combination_count += 1
+    pass
+
+def rotate_90_matrix(matrix):
+    row_index = 0
+    while row_index < len(matrix):
+        column_index = 0
+        while column_index <= row_index:
+            matrix[row_index][column_index] = matrix[row_index][column_index] ^ matrix[column_index][row_index]
+            matrix[column_index][row_index] = matrix[row_index][column_index] ^ matrix[column_index][row_index]
+            matrix[row_index][column_index] = matrix[row_index][column_index] ^ matrix[column_index][row_index]
+            column_index += 1
+        row_index += 1
+    return matrix
+
+def print_column_row(matrix):
+
+    column = 0
+    maximum_row_length = 0
+    for item in matrix:
+        if len(item) > maximum_row_length:
+            maximum_row_length = len(item)
+
+    while column < maximum_row_length:
+        row = 0
+        while row < len(matrix):
+            if column < len(matrix[row]):
+                print(matrix[row][column])
+            row += 1
+        column += 1
+
 if __name__ == "__main__":
+
+    print(print_column_row([[1,2,3,4,5,6],[4,5,6,34,67],[7,8,9]]))
+
 
     # Test Cases for find_min_max--------------------------------------------
     if find_min_max([9, 33, 14, 5, 0], "min") == 0:
