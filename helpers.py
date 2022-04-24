@@ -241,10 +241,32 @@ def print_column_row(matrix):
             row += 1
         column += 1
 
+
+def monty_carlo(a, b, c, d):
+    if a < b:
+        if (a < c < b and not a < d < b) or (a < d < b and not a < c < b):
+            return True
+        else:
+            return False
+    elif b < a:
+        if (b < c < a and not b < d < a) or (b < d < a and not b < c < a):
+            return True
+        else:
+            return False
+    else:
+        raise ValueError('These input does not create a line.')
+
+
 if __name__ == "__main__":
-
-    print(print_column_row([[1,2,3,4,5,6],[4,5,6,34,67],[7,8,9]]))
-
+    M = [[1,2,3,4,5,6],[4,5,6,34,67],[7,8,9]]
+    print(print_column_row(M))
+    Mnew = M[:]
+    print(Mnew)
+    # Msum =[]
+    # for row in range(M):
+    #     for col in row:
+    #         Msum.insert(col,None)
+    # print(Msum)
 
     # Test Cases for find_min_max--------------------------------------------
     if find_min_max([9, 33, 14, 5, 0], "min") == 0:

@@ -4,102 +4,102 @@ import helpers
 import helpers_recursive
 
 
-def instance_input(data_type, data_type_2=""):
-    max_value = 100
-    # Setting the seed to make sure that the same random list is generated every time with the same parameters
-    random.seed(124)
-    number_of_trials = 5000
-    if data_type == "int":
-        return [int(random.random() * max_value) for i in range(number_of_trials)]
-    elif data_type == "list" and data_type_2 == "int":
-        return [[int(random.random() * max_value) for i in range(number_of_trials)] for i in range(number_of_trials)]
-    elif data_type == "str" and data_type_2 == "order":
-        return [random.choice(["asc", "desc"]) for i in range(number_of_trials)]
-
-
-def time_test(file_name, function_name):
-    number_of_trials = 10  # you can change this number to make the testing faster.
-    number_of_trials_per_input = 10
-
-    if file_name == "helpers" and function_name == "is_prime":
-
-
-        print("Instancing input...")
-        input_list = instance_input("int")
-        print("Input instanced.")
-        print(function_name, "time trials start:")
-
-        total_time_taken = 0
-        for item in input_list:  # run for all the input
-            total_time_taken_current_trial = 0
-            for trial in range(number_of_trials_per_input):  # now run multiple times for every input
-                start_time = time.time()
-                helpers.is_prime(item)
-                end_time = time.time()
-                time_taken_current_trial = end_time - start_time
-                total_time_taken_current_trial = total_time_taken_current_trial + time_taken_current_trial
-            total_time_taken = total_time_taken + total_time_taken_current_trial
-        print('Average time taken by', str(function_name) + ":", total_time_taken / number_of_trials)
-        return print(function_name, "time trials end.")
-
-    elif file_name == "helpers" and function_name == "my_sum":
-        print("Instancing input...")
-        input_list = instance_input("list", "int")
-        print("Input instanced.")
-        print(function_name, "time trials start:")
-
-        total_time_taken = 0
-        for item in input_list:  # run for all the input
-            total_time_taken_current_trial = 0
-            for trial in range(number_of_trials_per_input):  # now run multiple times for every input
-                start_time = time.time()
-                helpers.my_sum(item)
-                end_time = time.time()
-                time_taken_current_trial = end_time - start_time
-                total_time_taken_current_trial = total_time_taken_current_trial + time_taken_current_trial
-            total_time_taken = total_time_taken + total_time_taken_current_trial
-        print('Average time taken by', str(function_name) + ":", total_time_taken / number_of_trials)
-        return print(function_name, "time trials end.")
-
-    elif file_name == "helpers" and function_name == "sort":
-        print("Instancing input...")
-        input_list = instance_input("list", "int")
-        input_list_order = [random.choice(["asc", "desc"]) for i in range(number_of_trials)]
-        print("Input instanced.")
-        print(function_name, "time trials with random lists start:")
-
-        total_time_taken = 0
-        for item_list, item_order in zip(input_list, input_list_order):  # run for all the input
-            total_time_taken_current_trial = 0
-            for trial in range(number_of_trials_per_input):  # now run multiple times for every input
-                start_time = time.time()
-                helpers.sort(item_list, item_order)
-                end_time = time.time()
-                time_taken_current_trial = end_time - start_time
-                total_time_taken_current_trial = total_time_taken_current_trial + time_taken_current_trial
-            total_time_taken = total_time_taken + total_time_taken_current_trial
-
-        print('Average time taken by', str(function_name) + ":", total_time_taken / number_of_trials)
-
-    elif file_name == "helpers" and function_name == "sort_using_min_max":
-        print("Instancing input...")
-        input_list = instance_input("list", "int")
-        input_list_order = [random.choice(["asc", "desc"]) for i in range(number_of_trials)]
-        print("Input instanced.")
-        print(function_name, "time trials with random lists start:")
-
-        total_time_taken = 0
-        for item_list, item_order in zip(input_list, input_list_order):  # run for all the input
-            total_time_taken_current_trial = 0
-            for trial in range(number_of_trials_per_input):  # now run multiple times for every input
-                start_time = time.time()
-                helpers.sort_using_min_max(item_list, item_order)
-                end_time = time.time()
-                time_taken_current_trial = end_time - start_time
-                total_time_taken_current_trial = total_time_taken_current_trial + time_taken_current_trial
-            total_time_taken = total_time_taken + total_time_taken_current_trial
-
-        print('Average time taken by', str(function_name) + ":", total_time_taken / number_of_trials)
+# def instance_input(data_type, data_type_2=""):
+#     max_value = 100
+#     # Setting the seed to make sure that the same random list is generated every time with the same parameters
+#     random.seed(124)
+#     number_of_trials = 5000
+#     if data_type == "int":
+#         return [int(random.random() * max_value) for i in range(number_of_trials)]
+#     elif data_type == "list" and data_type_2 == "int":
+#         return [[int(random.random() * max_value) for i in range(number_of_trials)] for i in range(number_of_trials)]
+#     elif data_type == "str" and data_type_2 == "order":
+#         return [random.choice(["asc", "desc"]) for i in range(number_of_trials)]
+#
+#
+# def time_test(file_name, function_name):
+#     number_of_trials = 10  # you can change this number to make the testing faster.
+#     number_of_trials_per_input = 10
+#
+#     if file_name == "helpers" and function_name == "is_prime":
+#
+#
+#         print("Instancing input...")
+#         input_list = instance_input("int")
+#         print("Input instanced.")
+#         print(function_name, "time trials start:")
+#
+#         total_time_taken = 0
+#         for item in input_list:  # run for all the input
+#             total_time_taken_current_trial = 0
+#             for trial in range(number_of_trials_per_input):  # now run multiple times for every input
+#                 start_time = time.time()
+#                 helpers.is_prime(item)
+#                 end_time = time.time()
+#                 time_taken_current_trial = end_time - start_time
+#                 total_time_taken_current_trial = total_time_taken_current_trial + time_taken_current_trial
+#             total_time_taken = total_time_taken + total_time_taken_current_trial
+#         print('Average time taken by', str(function_name) + ":", total_time_taken / number_of_trials)
+#         return print(function_name, "time trials end.")
+#
+#     elif file_name == "helpers" and function_name == "my_sum":
+#         print("Instancing input...")
+#         input_list = instance_input("list", "int")
+#         print("Input instanced.")
+#         print(function_name, "time trials start:")
+#
+#         total_time_taken = 0
+#         for item in input_list:  # run for all the input
+#             total_time_taken_current_trial = 0
+#             for trial in range(number_of_trials_per_input):  # now run multiple times for every input
+#                 start_time = time.time()
+#                 helpers.my_sum(item)
+#                 end_time = time.time()
+#                 time_taken_current_trial = end_time - start_time
+#                 total_time_taken_current_trial = total_time_taken_current_trial + time_taken_current_trial
+#             total_time_taken = total_time_taken + total_time_taken_current_trial
+#         print('Average time taken by', str(function_name) + ":", total_time_taken / number_of_trials)
+#         return print(function_name, "time trials end.")
+#
+#     elif file_name == "helpers" and function_name == "sort":
+#         print("Instancing input...")
+#         input_list = instance_input("list", "int")
+#         input_list_order = [random.choice(["asc", "desc"]) for i in range(number_of_trials)]
+#         print("Input instanced.")
+#         print(function_name, "time trials with random lists start:")
+#
+#         total_time_taken = 0
+#         for item_list, item_order in zip(input_list, input_list_order):  # run for all the input
+#             total_time_taken_current_trial = 0
+#             for trial in range(number_of_trials_per_input):  # now run multiple times for every input
+#                 start_time = time.time()
+#                 helpers.sort(item_list, item_order)
+#                 end_time = time.time()
+#                 time_taken_current_trial = end_time - start_time
+#                 total_time_taken_current_trial = total_time_taken_current_trial + time_taken_current_trial
+#             total_time_taken = total_time_taken + total_time_taken_current_trial
+#
+#         print('Average time taken by', str(function_name) + ":", total_time_taken / number_of_trials)
+#
+#     elif file_name == "helpers" and function_name == "sort_using_min_max":
+#         print("Instancing input...")
+#         input_list = instance_input("list", "int")
+#         input_list_order = [random.choice(["asc", "desc"]) for i in range(number_of_trials)]
+#         print("Input instanced.")
+#         print(function_name, "time trials with random lists start:")
+#
+#         total_time_taken = 0
+#         for item_list, item_order in zip(input_list, input_list_order):  # run for all the input
+#             total_time_taken_current_trial = 0
+#             for trial in range(number_of_trials_per_input):  # now run multiple times for every input
+#                 start_time = time.time()
+#                 helpers.sort_using_min_max(item_list, item_order)
+#                 end_time = time.time()
+#                 time_taken_current_trial = end_time - start_time
+#                 total_time_taken_current_trial = total_time_taken_current_trial + time_taken_current_trial
+#             total_time_taken = total_time_taken + total_time_taken_current_trial
+#
+#         print('Average time taken by', str(function_name) + ":", total_time_taken / number_of_trials)
 
 
 # # ---------------------is_sorted trials with sorted input below--------------------------------
@@ -232,3 +232,49 @@ def time_test(file_name, function_name):
 
 
 # ------------------------------------------------------------------------------------------------
+random.seed()
+number_of_trials = 100000
+a = random.randint(0, 360)
+
+a_input = []
+for trial in range(number_of_trials):
+    a = random.randint(0, 360)
+    a_input.append(a)
+
+a_index = 0
+b_input = []
+for trial in range(number_of_trials):
+    b = random.randint(0, 360)
+    while a_input[a_index] == b:
+        b = random.randint(0, 360)
+    b_input.append(b)
+    a_index += 1
+
+c_input = []
+for trial in range(number_of_trials):
+    c = random.randint(0, 360)
+    c_input.append(c)
+
+c_index = 0
+d_input = []
+for trial in range(number_of_trials):
+    d = random.randint(0, 360)
+    while c_input[c_index] == d:
+        d = random.randint(0, 360)
+    d_input.append(d)
+    c_index += 1
+
+input_list = list(zip(a_input, b_input, c_input, d_input))
+results = [0,0]
+result_truth = []
+for trial in input_list:
+    current_trial_result = helpers.monty_carlo(trial[0], trial[1], trial[2], trial[3])
+    result_truth.append(current_trial_result)
+    if current_trial_result:
+        results[0] += 1
+    else:
+        results[1] += 1
+print(input_list)
+print(result_truth)
+print('Percentage of intersect', ((results[0]/number_of_trials) * 100))
+print('Percentage of non-intersect', ((results[1]/number_of_trials) * 100))
