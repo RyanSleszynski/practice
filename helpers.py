@@ -1,4 +1,16 @@
 from math import sqrt
+import time
+
+
+def wait(seconds=0):
+    waiting = True
+    current_time = time.time()
+    while waiting:
+        new_time = time.time()
+        if new_time >= current_time + seconds:
+            waiting = False
+        new_time = time.time()
+
 
 
 def is_prime(whole_number):
@@ -198,7 +210,74 @@ def new_bubble_sort(list):
     return list
 
 
+def combinations(list):
+    original_list = list[:]
+    temp_list = original_list[:]
+    list_size = len(list)
+    print(original_list)
+    combination_count = 1
+    while list_size >= 0:
+        ignored_index = 0
+        while ignored_index < len(temp_list):
+            print(temp_list[0:ignored_index] + temp_list[ignored_index+1:])
+            ignored_index += 1
+            combination_count += 1
+    pass
+
+def rotate_90_matrix(matrix):
+    row_index = 0
+    while row_index < len(matrix):
+        column_index = 0
+        while column_index <= row_index:
+            matrix[row_index][column_index] = matrix[row_index][column_index] ^ matrix[column_index][row_index]
+            matrix[column_index][row_index] = matrix[row_index][column_index] ^ matrix[column_index][row_index]
+            matrix[row_index][column_index] = matrix[row_index][column_index] ^ matrix[column_index][row_index]
+            column_index += 1
+        row_index += 1
+    return matrix
+
+def print_column_row(matrix):
+
+    column = 0
+    maximum_row_length = 0
+    for item in matrix:
+        if len(item) > maximum_row_length:
+            maximum_row_length = len(item)
+
+    while column < maximum_row_length:
+        row = 0
+        while row < len(matrix):
+            if column < len(matrix[row]):
+                print(matrix[row][column])
+            row += 1
+        column += 1
+
+
+def monty_carlo(a, b, c, d):
+    if a < b:
+        if (a < c < b and not a < d < b) or (a < d < b and not a < c < b):
+            return True
+        else:
+            return False
+    elif b < a:
+        if (b < c < a and not b < d < a) or (b < d < a and not b < c < a):
+            return True
+        else:
+            return False
+    else:
+        raise ValueError('These input does not create a line.')
+
+
 if __name__ == "__main__":
+    M = [[1,2,3,4,5,6],[4,5,6,34,67],[7,8,9]]
+    print(print_column_row(M))
+    Mnew = M[:]
+    print(Mnew)
+    # Msum =[]
+    # for row in range(M):
+    #     for col in row:
+    #         Msum.insert(col,None)
+    # print(Msum)
 
     # Test Cases for find_min_max--------------------------------------------
     if find_min_max([9, 33, 14, 5, 0], "min") == 0:
