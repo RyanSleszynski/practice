@@ -102,55 +102,83 @@ import helpers_recursive
 #         print('Average time taken by', str(function_name) + ":", total_time_taken / number_of_trials)
 
 
+def first_point_generation(number_of_trials=10000):
+    a, b = 0, 360
+    first_point_input = []
+    for trial in range(number_of_trials):
+        first_point = random.randrange(a, b)
+        first_point_input.append(first_point)
+    return first_point_input
+
+
+def second_point_generation(first_point_input: list, number_of_trials=10000):
+    a, b = 0, 360
+    first_point_index = 0
+    second_point_input = []
+    for trial in range(number_of_trials):
+        second_point = random.randint(a, b)
+        while first_point_input[first_point_index] == second_point:
+            second_point = random.randint(a, b)
+        second_point_input.append(second_point)
+        first_point_index += 1
+    return second_point_input
+
+
+def does_intersect(a, b, c, d):
+    if a < b:
+        if (a < c < b and not a < d < b) or (a < d < b and not a < c < b):
+            return True
+        else:
+            return False
+    elif b < a:
+        if (b < c < a and not b < d < a) or (b < d < a and not b < c < a):
+            return True
+        else:
+            return False
+    else:
+        raise ValueError('The input does not create a line.')
+
+
+# All values are based on degrees. For example: a value of 180 would assume a point 180 degrees from any designated 0
+# If a point from segment ab and cd are equal they are considered to NOT intersect
+# input for the second point of each line segment is based on the respective first point
+# This was done because of the assumption that if a = b then there is an error because it
+# does not create a line. To get around this, if the randomly picked second point
+# equals the first point for that respective pair then the second point is randomized again until a != b
 
 random.seed()
-number_of_trials = 10000000
+number_of_trials = 1_000_000
 
-print('Start of a input')
-a = random.randint(0, 359)
-a_input = []
-for trial in range(number_of_trials):
-    a = random.randint(0, 359)
-    a_input.append(a)
-print('End of a input')
-print('Start of b input')
-a_index = 0
-b_input = []
-for trial in range(number_of_trials):
-    b = random.randint(0, 359)
-    while a_input[a_index] == b:
-        b = random.randint(0, 359)
-    b_input.append(b)
-    a_index += 1
-print('End of b input')
-print('Start of c input')
-c_input = []
-for trial in range(number_of_trials):
-    c = random.randint(0, 359)
-    c_input.append(c)
-print('End of c input')
-print('Start of d input')
-c_index = 0
-d_input = []
-for trial in range(number_of_trials):
-    d = random.randint(0, 359)
-    while c_input[c_index] == d:
-        d = random.randint(0, 359)
-    d_input.append(d)
-    c_index += 1
-print('End of d input')
+
+print('Creating input for point \"a\"')
+a_input = first_point_generation(number_of_trials)
+
+print('Creating input for point \"b\"')
+b_input = second_point_generation(a_input, number_of_trials)
+
+print('Creating input for point \"c\"')
+c_input = first_point_generation(number_of_trials)
+
+print('Creating input for point \"d\"')
+d_input = second_point_generation(c_input, number_of_trials)
+
+print('Zipping all input')
 input_list = list(zip(a_input, b_input, c_input, d_input))
 print('End of zip')
-results = [0,0]
+
+results = {'intersect': 0,
+           'non-intersect': 0}
+
+# result_truth was created to confirm correct answers
 result_truth = []
 print('Start of Trials:')
 for trial in input_list:
-    current_trial_result = helpers.monty_carlo(trial[0], trial[1], trial[2], trial[3])
+    current_trial_result = does_intersect(trial[0], trial[1], trial[2], trial[3])
     result_truth.append(current_trial_result)
     if current_trial_result:
-        results[0] += 1
+        results['intersect'] += 1
     else:
-        results[1] += 1
+        results['non-intersect'] += 1
 print('End of Trials')
-print('Percentage of intersect', ((results[0]/number_of_trials) * 100))
-print('Percentage of non-intersect', ((results[1]/number_of_trials) * 100))
+print('Percentage of intersect', ((results['intersect']/number_of_trials) * 100))
+print('Percentage of non-intersect', ((results['non-intersect']/number_of_trials) * 100))

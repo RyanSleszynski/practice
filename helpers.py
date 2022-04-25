@@ -253,21 +253,6 @@ def print_column_row(matrix):
         column += 1
 
 
-def monty_carlo(a, b, c, d):
-    if a < b:
-        if (a < c < b and not a < d < b) or (a < d < b and not a < c < b):
-            return True
-        else:
-            return False
-    elif b < a:
-        if (b < c < a and not b < d < a) or (b < d < a and not b < c < a):
-            return True
-        else:
-            return False
-    else:
-        raise ValueError('These input does not create a line.')
-
-
 if __name__ == "__main__":
     M = [[1,2,3,4,5,6],[4,5,6,34,67],[7,8,9]]
     print(print_column_row(M))
