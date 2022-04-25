@@ -106,7 +106,7 @@ def first_point_generation(number_of_trials=10000):
     a, b = 0, 360
     first_point_input = []
     for trial in range(number_of_trials):
-        first_point = random.randrange(a, b)
+        first_point = random.uniform(a, b)
         first_point_input.append(first_point)
     return first_point_input
 
@@ -116,9 +116,9 @@ def second_point_generation(first_point_input: list, number_of_trials=10000):
     first_point_index = 0
     second_point_input = []
     for trial in range(number_of_trials):
-        second_point = random.randint(a, b)
+        second_point = random.uniform(a, b)
         while first_point_input[first_point_index] == second_point:
-            second_point = random.randint(a, b)
+            second_point = random.uniform(a, b)
         second_point_input.append(second_point)
         first_point_index += 1
     return second_point_input
@@ -166,6 +166,8 @@ print('Zipping all input')
 input_list = list(zip(a_input, b_input, c_input, d_input))
 print('End of zip')
 
+# del removes all previous input because it is zipped to a new object at this point
+del a_input, b_input, c_input, d_input
 results = {'intersect': 0,
            'non-intersect': 0}
 

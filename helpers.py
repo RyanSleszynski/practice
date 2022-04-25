@@ -1,5 +1,6 @@
 from math import sqrt
 import time
+import random
 
 
 def wait(seconds=0):
@@ -324,4 +325,5 @@ if __name__ == "__main__":
         print("Failed sort", bubble_sort([5, 4, 3, 2, 1], "asc"))
 
     print(new_bubble_sort([2,1,23,4,7,6,5,40,15,31,26,29]))
+    print(random.uniform(0,360))
     print("End")
