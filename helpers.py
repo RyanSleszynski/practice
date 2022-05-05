@@ -1,16 +1,6 @@
+import math
 from math import sqrt
 import time
-
-
-def wait(seconds=0):
-    waiting = True
-    current_time = time.time()
-    while waiting:
-        new_time = time.time()
-        if new_time >= current_time + seconds:
-            waiting = False
-        new_time = time.time()
-
 
 
 def is_prime(whole_number):
@@ -55,31 +45,29 @@ def bubble_sort(list_of_items, order):
         sorted_flag = False
         while sorted_flag == False:
             index = 0
-            change_counter = 0
+            sorted_flag = True
             while index < len(list_of_items) - 1:
                 if list_of_items[index] > list_of_items[index + 1]:
                     list_of_items[index] = list_of_items[index] ^ list_of_items[index + 1]
                     list_of_items[index + 1] = list_of_items[index] ^ list_of_items[index + 1]
                     list_of_items[index] = list_of_items[index] ^ list_of_items[index + 1]
-                    change_counter += 1
+                    sorted_flag = False
                 index += 1
-            if change_counter == 0:
-                sorted_flag = True
+
 
     elif order == "descending" or order == "desc":
         sorted_flag = False
         while sorted_flag == False:
             index = 0
-            change_counter = 0
+            sorted_flag = True
             while index < len(list_of_items) - 1:
                 if list_of_items[index] < list_of_items[index + 1]:
                     list_of_items[index] = list_of_items[index] ^ list_of_items[index + 1]
                     list_of_items[index + 1] = list_of_items[index] ^ list_of_items[index + 1]
                     list_of_items[index] = list_of_items[index] ^ list_of_items[index + 1]
-                    change_counter += 1
+                    sorted_flag = False
                 index += 1
-            if change_counter == 0:
-                sorted_flag = True
+
     return list_of_items
 
 
@@ -206,7 +194,7 @@ def new_bubble_sort(list):
                 list[right_index] = list[left_index] ^ list[right_index]
             left_index -= 1
             right_index -= 1
-        minimum_left_index +=1
+        minimum_left_index += 1
     return list
 
 
@@ -251,6 +239,18 @@ def print_column_row(matrix):
                 print(matrix[row][column])
             row += 1
         column += 1
+
+
+def is_prime_range(p, q):
+    result = []
+    for number in range(p, q + 1):
+        for divisor in range(2, int(math.sqrt(number))+1):
+            if number % divisor == 0:
+                break
+            elif divisor > math.sqrt(number)-1:
+                result.append(number)
+
+    return result
 
 
 if __name__ == "__main__":
@@ -325,3 +325,14 @@ if __name__ == "__main__":
 
     print(new_bubble_sort([2,1,23,4,7,6,5,40,15,31,26,29]))
     print("End")
+    p = 1
+    q = 30
+    #[create a list of numbers]
+
+    L = [number for number in range(p, q+1) for divisor in range(2, int(sqrt(number))) if number]
+
+    num_list = [number for number in [number for number in range(p, q+1)]]
+    print(num_list)
+    primes = [number for number in num_list if number == 1 or number == 2 or number == 3 for divisor in range(2, int(math.sqrt(number))+1) if number % divisor != 0 and divisor > math.sqrt(number)-1]
+    print('primes', primes)
+    print('is_prime_range function', is_prime_range(0,30))
