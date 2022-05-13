@@ -253,86 +253,261 @@ def is_prime_range(p, q):
     return result
 
 
+def merge(list_1, list_2):
+
+    list_1_index = 0
+    list_2_index = 0
+    # this temp list will be used to return the final sorted list in this function
+    temp_list_2 = []
+
+    # the items in each list are being compared one by one and once
+    # one of the indexes reaches its respective list's end then it exits
+    while list_1_index < len(list_1) and list_2_index < len(list_2):
+        if list_1[list_1_index] > list_2[list_2_index]:
+            temp_list_2.append(list_1[list_1_index])
+            list_1_index += 1
+        else:
+            temp_list_2.append(list_2[list_2_index])
+            list_2_index += 1
+
+    # this if statement will append all remaining items in the list that the index is not at the end
+    if list_1_index == len(list_1):
+        for element in list_2[list_2_index:]:
+            temp_list_2.append(element)
+    else:
+        for element in list_1[list_1_index:]:
+            temp_list_2.append(element)
+    return temp_list_2
+
+
+def merge_sort(input_list):
+    temp_list = input_list[:]
+    # these two assignment statements split the list in half
+    temp_list_left = temp_list[:(len(temp_list) // 2)]
+    temp_list_right = temp_list[(len(temp_list) // 2):]
+
+    # If the left list has one element and the right list has more than one element
+    # then the right list needs to be split further
+    if len(temp_list_left) == 1 and len(temp_list_right) != 1:
+        temp_list_right = merge_sort(temp_list_right)
+
+    # If the right list has one element and the left list has more than one element
+    # then the left list needs to be split further
+    elif len(temp_list_left) != 1 and len(temp_list_right) == 1:
+        temp_list_left = merge_sort(temp_list_left)
+
+    # If both left and right lists have more than one element then both must be split
+    elif len(temp_list_left) != 1 and len(temp_list_right) != 1:
+        temp_list_left = merge_sort(temp_list_left)
+        temp_list_right = merge_sort(temp_list_right)
+
+    # Once all elements are split up into their smallest parts then this statement will run and
+    # go back up the stack to return the result
+    return merge(temp_list_left, temp_list_right)
+
+
+def find_bill_combos():
+    wanted_characters = '0123456789. '
+
+    bill_prices = input('Enter all bills to compare:\n')
+    for character in bill_prices:
+        if character not in wanted_characters:
+            bill_prices = bill_prices.replace(character, ' ')
+    bill_list = bill_prices.split(' ')
+
+    # This loop changes all the input into float data type for later comparison
+    index = 0
+    for item in bill_list:
+        bill_list[index] = float(item)
+        index += 1
+
+    # we are sorting the list in descending order because we can infer information at certain points
+    # that allow the function to have less iterations
+    bill_list = merge_sort(bill_list)
+
+    bill_sum = input('What is the sum you are looking for?')
+    for character in bill_sum:
+        if character not in wanted_characters:
+            bill_sum = bill_sum.replace(character, '')
+    bill_sum = float(bill_sum)
+
+    possible_combinations = []
+    starting_index = 0
+
+    # Combination checking loop
+    while starting_index < len(bill_list):
+        compare_index = starting_index + 1
+
+        # here we are checking if the bills entered will sum to the wanted sum to begin with
+        max_sum = bill_list[starting_index]
+        while compare_index < len(bill_list):
+            max_sum = max_sum + bill_list[compare_index]
+            compare_index += 1
+        compare_index = starting_index + 1
+
+        # if it is possible for the bills to sum then we check further
+        if max_sum > bill_sum > bill_list[starting_index]:
+            # Assume there is a possible combination that starts with the starting index
+            possible_combinations.append([bill_list[starting_index]])
+
+            # the current_sum at this point starts with the current starting bill
+            current_sum = bill_list[starting_index]
+
+            # the second_starting_index is used to keep track of "inner" combinations with the starting_index bill
+            second_starting_index = starting_index + 1
+            while True:
+                # if the current sum is less than the bill sum we can infer there is a possible combination that
+                # includes the item currently being compared so add it to that combination and add it to the current sum
+                if current_sum < bill_sum:
+                    possible_combinations[-1].append(bill_list[compare_index])
+                    current_sum += bill_list[compare_index]
+
+                # if the current_sum is greater than the bill_sum there may still be a combination then we can infer that that item cannot be
+                # part of the combination and any further combinations with that number will be greater than
+                # the wanted sum. therefore remove that possibility and start again at the next "inner" index
+                elif current_sum > bill_sum:
+
+                    # if we reached the last element in the bill list then there are no more elements to compare with
+                    # therefore we should remove that entire combination and start a new combination with
+                    # the next "inner" index
+                    if compare_index == len(bill_list):
+                        possible_combinations = possible_combinations[:-1]
+                        possible_combinations.append([bill_list[starting_index], bill_list[second_starting_index]])
+                        current_sum = bill_list[starting_index] + bill_list[second_starting_index]
+                        second_starting_index += 1
+                        compare_index = second_starting_index + 1
+
+                        # find the maximum value of the elements that come after the second_starting_index
+                        current_max = 0
+                        for item in bill_list[second_starting_index:]:
+                            current_max += item
+
+                        # if that sum is less than the wanted sum then there can be no more possibilities
+                        # with this starting_index
+                        if bill_list[starting_index] + current_max < bill_sum:
+                            break
+
+                    # we have not reached the last element to compare with and we know there may still be a combination
+                    # excluding the current compared element. therefore, remove that element from the sum and the combination
+                    # compare with the next number and add it to the combination and the sum
+                    else:
+                        current_sum -= bill_list[compare_index]
+                        possible_combinations[-1].remove(bill_list[compare_index])
+                        compare_index += 1
+                        possible_combinations[-1].append(bill_list[compare_index])
+                        current_sum += bill_list[compare_index]
+                else:
+                    break
+
+        # if the sum of all bills less than the starting bill equals the sum then that is
+        # the last possible combination add it then break out of loop
+        elif max_sum == bill_sum:
+            possible_combinations.append([])
+            for item in bill_list[starting_index:]:
+                possible_combinations[-1].append(item)
+            break
+
+        # at any point when the max_sum for that particular iteration is less than the wanted sum
+        # we can infer that there are no more possible combinations
+        elif max_sum < bill_sum:
+            break
+        starting_index += 1
+
+    if len(possible_combinations) == 0:
+        print('Sorry but we could not find any combinations of the bills you entered.')
+    else:
+        for item in possible_combinations:
+            print(item)
+
+
+
 if __name__ == "__main__":
-    M = [[1,2,3,4,5,6],[4,5,6,34,67],[7,8,9]]
-    print(print_column_row(M))
-    Mnew = M[:]
-    print(Mnew)
+    print(find_bill_combos())
+    # M = [[1,2,3,4,5,6],[4,5,6,34,67],[7,8,9]]
+    # print(print_column_row(M))
+    # Mnew = M[:]
+    # print(Mnew)
     # Msum =[]
     # for row in range(M):
     #     for col in row:
     #         Msum.insert(col,None)
     # print(Msum)
 
-    # Test Cases for find_min_max--------------------------------------------
-    if find_min_max([9, 33, 14, 5, 0], "min") == 0:
-        print("Passed find_min_max", find_min_max([9, 33, 14, 5, 0], "min"))
-    else:
-        print("Failed find_min_max", find_min_max([9, 33, 14, 5, 0], "min"))
-
-    if find_min_max([9, 33, 14, 5, 0], "max") == 33:
-        print("Passed find_min_max", find_min_max([9, 33, 14, 5, 0], "max"))
-    else:
-        print("Failed find_min_max", find_min_max([9, 33, 14, 5, 0], "max"))
-
-    # Test Cases for is_prime-------------------------------------------------
-    if not is_prime(9):
-        print("Passed is_prime(2)")
-    else:
-        print("Failed is_prime(2)")
-
-    if is_prime(113):
-        print("Passed is_prime(25)")
-    else:
-        print("Failed is_prime(25)")
-
-    # Test Cases for factorial-------------------------------------------------
-    if factorial(3) == 6:
-        print("Passed factorial")
-    else:
-        print("Failed factorial", factorial(3))
-
-    if factorial(5) == 120:
-        print("Passed factorial")
-    else:
-        print("Failed factorial", factorial(5))
-
-    if factorial(7) == 5040:
-        print("Passed factorial")
-    else:
-        print("Failed factorial", factorial(7))
-
-    if factorial(1) == 1:
-        print("Passed factorial")
-    else:
-        print("Failed factorial", factorial(1))
-
-    if factorial(0) == 0:
-        print("Passed factorial")
-    else:
-        print("Failed factorial", factorial(0))
-
-    # Test cases for sort--------------------------------------------------
-    if bubble_sort([11, 5, 12, 6], "asc") == [5, 6, 11, 12]:
-        print("Passed sort")
-    else:
-        print("Failed sort", bubble_sort([11, 5, 12, 6], "asc"))
-
-    if bubble_sort([5, 4, 3, 2, 1], "asc") == [1, 2, 3, 4, 5]:
-        print("Passed sort")
-    else:
-        print("Failed sort", bubble_sort([5, 4, 3, 2, 1], "asc"))
-
-    print(new_bubble_sort([2,1,23,4,7,6,5,40,15,31,26,29]))
-    print("End")
-    p = 1
-    q = 30
-    #[create a list of numbers]
-
-    L = [number for number in range(p, q+1) for divisor in range(2, int(sqrt(number))) if number]
-
-    num_list = [number for number in [number for number in range(p, q+1)]]
-    print(num_list)
-    primes = [number for number in num_list if number == 1 or number == 2 or number == 3 for divisor in range(2, int(math.sqrt(number))+1) if number % divisor != 0 and divisor > math.sqrt(number)-1]
-    print('primes', primes)
-    print('is_prime_range function', is_prime_range(0,30))
+    # # Test Cases for find_min_max--------------------------------------------
+    # if find_min_max([9, 33, 14, 5, 0], "min") == 0:
+    #     print("Passed find_min_max", find_min_max([9, 33, 14, 5, 0], "min"))
+    # else:
+    #     print("Failed find_min_max", find_min_max([9, 33, 14, 5, 0], "min"))
+    #
+    # if find_min_max([9, 33, 14, 5, 0], "max") == 33:
+    #     print("Passed find_min_max", find_min_max([9, 33, 14, 5, 0], "max"))
+    # else:
+    #     print("Failed find_min_max", find_min_max([9, 33, 14, 5, 0], "max"))
+    #
+    # # Test Cases for is_prime-------------------------------------------------
+    # if not is_prime(9):
+    #     print("Passed is_prime(2)")
+    # else:
+    #     print("Failed is_prime(2)")
+    #
+    # if is_prime(113):
+    #     print("Passed is_prime(25)")
+    # else:
+    #     print("Failed is_prime(25)")
+    #
+    # # Test Cases for factorial-------------------------------------------------
+    # if factorial(3) == 6:
+    #     print("Passed factorial")
+    # else:
+    #     print("Failed factorial", factorial(3))
+    #
+    # if factorial(5) == 120:
+    #     print("Passed factorial")
+    # else:
+    #     print("Failed factorial", factorial(5))
+    #
+    # if factorial(7) == 5040:
+    #     print("Passed factorial")
+    # else:
+    #     print("Failed factorial", factorial(7))
+    #
+    # if factorial(1) == 1:
+    #     print("Passed factorial")
+    # else:
+    #     print("Failed factorial", factorial(1))
+    #
+    # if factorial(0) == 0:
+    #     print("Passed factorial")
+    # else:
+    #     print("Failed factorial", factorial(0))
+    #
+    # # Test cases for sort--------------------------------------------------
+    # if bubble_sort([11, 5, 12, 6], "asc") == [5, 6, 11, 12]:
+    #     print("Passed sort")
+    # else:
+    #     print("Failed sort", bubble_sort([11, 5, 12, 6], "asc"))
+    #
+    # if bubble_sort([5, 4, 3, 2, 1], "asc") == [1, 2, 3, 4, 5]:
+    #     print("Passed sort")
+    # else:
+    #     print("Failed sort", bubble_sort([5, 4, 3, 2, 1], "asc"))
+    #
+    # print(new_bubble_sort([2,1,23,4,7,6,5,40,15,31,26,29]))
+    # print("End")
+    # p = 1
+    # q = 30
+    # #[create a list of numbers]
+    #
+    # # L = [number for number in range(p, q+1) for divisor in range(2, int(sqrt(number))) if number]
+    # #
+    # # num_list = [number for number in [number for number in range(p, q+1)]]
+    # # print(num_list)
+    # # primes = [number for number in num_list if number == 1 or number == 2 or number == 3 for divisor in range(2, int(math.sqrt(number))+1) if number % divisor != 0 and divisor > math.sqrt(number)-1]
+    # # print('primes', primes)
+    # # print('is_prime_range function', is_prime_range(0,30))
+    # matrix = [[1,2,3],[4,5,6],[7,8,9]]
+    # list2 = [[item*item for item in row]for row in matrix]
+    # list3 = [item*item for row in matrix for item in row]
+    # list4 = [[row[i] for row in matrix] for i in range(len(matrix))]
+    # list1 = [item*item for item in row for row in matrix]
+    # print(list2)
