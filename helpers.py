@@ -37,6 +37,11 @@ def my_sum(list_of_items):
 
 
 def factorial(whole_number):
+
+    # Special case
+    if whole_number == 0:
+        return 1
+
     # This solution begins with the number given then multiplies
     # by one less than the previous multiple
     accumulator = whole_number
@@ -168,6 +173,18 @@ def bubble_sort(list_of_items, order):
 
 
 def new_bubble_sort(list):
+    """
+    This function sorts through the passed argument in ascending order. The method is: bubble sort from left to right
+    bringing the maximum value to the right then removing that from the comparisons because we know it is the greatest
+    then go from right to left moving the minimum value to the left then removing that from the comparisons because we
+    know it is the minimum
+
+    :returns a sorted list in ascending order
+
+    :param list: a list of items
+    :return: list
+
+    """
     maximum_right_index = len(list) - 1
     minimum_left_index = 0
     comparisons = 0
@@ -316,9 +333,13 @@ def merge_sort(input_list, order:str):
 
 
 def processing(text: str, wanted_characters: str):
-    '''
+    """
     Removes all unwanted characters and excess spaces
-    '''
+
+    :param text a string that needs to be processed
+    :param wanted_characters a string of characters that you do NOT want removed
+    :return: str
+    """
     has_spaces = False
     # replaces unwanted characters and with a space
     for character in text:
@@ -352,7 +373,7 @@ def processing(text: str, wanted_characters: str):
 
 def find_bill_combos():
     """
-    This function is for finding combinations of bills that add to a specific sum
+    This function finds combinations of bills that add to a specific sum. Input handling is included in the function
     """
     wanted_characters = '0123456789. '
     bill_prices = input('Enter all bills to compare:\n')
@@ -465,16 +486,6 @@ def find_bill_combos():
 
 if __name__ == "__main__":
     print(find_bill_combos())
-    # M = [[1,2,3,4,5,6],[4,5,6,34,67],[7,8,9]]
-    # print(print_column_row(M))
-    # Mnew = M[:]
-    # print(Mnew)
-    # Msum =[]
-    # for row in range(M):
-    #     for col in row:
-    #         Msum.insert(col,None)
-    # print(Msum)
-
     # # Test Cases for find_min_max--------------------------------------------
     # if find_min_max([9, 33, 14, 5, 0], "min") == 0:
     #     print("Passed find_min_max", find_min_max([9, 33, 14, 5, 0], "min"))
@@ -497,7 +508,7 @@ if __name__ == "__main__":
     # else:
     #     print("Failed is_prime(113)")
     #
-    # # Test Cases for factorial-------------------------------------------------
+    # Test Cases for factorial-------------------------------------------------
     # if factorial(3) == 6:
     #     print("Passed factorial")
     # else:
@@ -518,11 +529,11 @@ if __name__ == "__main__":
     # else:
     #     print("Failed factorial", factorial(1))
     #
-    # if factorial(0) == 0:
+    # if factorial(0) == 1:
     #     print("Passed factorial")
     # else:
     #     print("Failed factorial", factorial(0))
-    #
+
     # # Test cases for sort--------------------------------------------------
     # if bubble_sort([11, 5, 12, 6], "asc") == [5, 6, 11, 12]:
     #     print("Passed sort")
@@ -533,23 +544,5 @@ if __name__ == "__main__":
     #     print("Passed sort")
     # else:
     #     print("Failed sort", bubble_sort([5, 4, 3, 2, 1], "asc"))
-    # print(bubble_sort([17,16,15,14,13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1], 'asc'))
-    # print(new_bubble_sort([17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1]))
+
     # print("End")
-    # p = 1
-    # q = 30
-    # #[create a list of numbers]
-    #
-    # # L = [number for number in range(p, q+1) for divisor in range(2, int(sqrt(number))) if number]
-    # #
-    # # num_list = [number for number in [number for number in range(p, q+1)]]
-    # # print(num_list)
-    # # primes = [number for number in num_list if number == 1 or number == 2 or number == 3 for divisor in range(2, int(math.sqrt(number))+1) if number % divisor != 0 and divisor > math.sqrt(number)-1]
-    # # print('primes', primes)
-    # # print('is_prime_range function', is_prime_range(0,30))
-    # matrix = [[1,2,3],[4,5,6],[7,8,9]]
-    # list2 = [[item*item for item in row]for row in matrix]
-    # list3 = [item*item for row in matrix for item in row]
-    # list4 = [[row[i] for row in matrix] for i in range(len(matrix))]
-    # list1 = [item*item for item in row for row in matrix]
-    # print(list2)
