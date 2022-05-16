@@ -376,22 +376,29 @@ def find_bill_combos():
     This function finds combinations of bills that add to a specific sum. Input handling is included in the function
     """
     wanted_characters = '0123456789. '
-    bill_prices = input('Enter all bills to compare:\n')
+    bill_list = []
+    bill_price = input('Enter one bill price at a time:\n')
+    while bill_price != '':
+        bill_price = processing(bill_price, wanted_characters)
+        bill_list.append(bill_price)
+        bill_price = input()
 
-    bill_prices = processing(bill_prices, wanted_characters)
-    bill_list = bill_prices.split(' ')
+    print(bill_list)
 
     # This loop changes all the input into float data type for later comparison
     index = 0
     for item in bill_list:
         bill_list[index] = float(item)
         index += 1
-
+    del item, bill_price
     # we are sorting the list in descending order because we can infer information at certain points
     # that allow the function to have less iterations
     # bill_list_unordered = bill_list[:]
-    bill_list = merge_sort(bill_list, order='desc')
-
+    if len(bill_list) >= 2:
+        bill_list = merge_sort(bill_list, order='desc')
+    else:
+        raise ValueError('Must have more than one item in the list.')
+    print('sorted list', bill_list)
     bill_sum = input('What is the sum you are looking for?\n')
     bill_sum = processing(bill_sum, wanted_characters)
     bill_sum = float(bill_sum)
@@ -411,7 +418,7 @@ def find_bill_combos():
         compare_index = starting_index + 1
 
         # if it is possible for the bills to sum to bill_sum, then we check further
-        if max_sum > bill_sum > bill_list[starting_index]:
+        if max_sum > bill_sum >= bill_list[starting_index]:
             # Assume there is a possible combination that starts with the starting index
             possible_combinations.append([bill_list[starting_index]])
 
@@ -421,11 +428,19 @@ def find_bill_combos():
             # the second_starting_index is used to keep track of "inner" combinations with the starting_index bill
             second_starting_index = starting_index + 1
             while True:
+                # if the current_sum is less than the bill_sum and we are comparing with the last
+                # element then that combination will not sum to bill sum so
+                # we can remove that combination
+                if current_sum < bill_sum and compare_index == len(bill_list)-1:
+                    possible_combinations = possible_combinations[:-1]
+                    break
+
                 # if the current sum is less than the bill sum we can infer there is a possible combination that
                 # includes the item currently being compared so add it to that combination and add it to the current sum
-                if current_sum < bill_sum:
+                elif current_sum < bill_sum and compare_index != len(bill_list)-1:
                     possible_combinations[-1].append(bill_list[compare_index])
                     current_sum += bill_list[compare_index]
+                    # compare_index += 1
 
                 # if the current_sum is greater than the bill_sum there may still be a combination
                 elif current_sum > bill_sum:
@@ -479,6 +494,7 @@ def find_bill_combos():
     if len(possible_combinations) == 0:
         print('Sorry but we could not find any combinations of the bills you entered.')
     else:
+        print('Here are all possible combinations:')
         for item in possible_combinations:
             print(item)
 
