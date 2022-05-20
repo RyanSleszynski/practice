@@ -1,5 +1,11 @@
 
 def is_matrix(matrix):
+    """
+    Returns a boolean value for whether a given list-of-lists is a matrix
+
+    :param matrix: list of lists
+    :return: Boolean
+    """
     two_dimensional_check(matrix)
     index = 0
     # This goes through each item in the outer list
@@ -16,6 +22,13 @@ def is_matrix(matrix):
 
 # number of iterations: len(M1) * len(M1[0])
 def is_equal(M1, M2):
+    """
+    Returns whether two given matrices of the same size are identical
+
+    :param M1: list-of-lists (n x m) size
+    :param M2: list-of-lists (n x m) size
+    :return:
+    """
     # if one of the values passed is not a matrix this will raise a value error
     if is_matrix(M1) and is_matrix(M2):
 
@@ -37,6 +50,13 @@ def is_equal(M1, M2):
 
 # number of iterations: len(M1) * len(M1[0])
 def add(M1, M2):
+    """
+    Returns a matrix that is the sum of two matrices
+
+    :param M1: list-of-lists of size n x m
+    :param M2: list-of-lists of size n x m
+    :return: list-of-lists of size n x m
+    """
     two_dimensional_check(M1)
     two_dimensional_check(M2)
     # if the matrices are of the same size they can be added
@@ -57,6 +77,13 @@ def add(M1, M2):
 
 # number of iterations: len(M1) * len(M1[0])
 def subtract(M1, M2):
+    """
+    Returns a matrix that is the difference of two matrices
+
+    :param M1: list-of-lists of size n x m
+    :param M2: list-of-lists of size n x m
+    :return: list-of-lists of size n x m
+    """
     two_dimensional_check(M1)
     two_dimensional_check(M2)
     if same_size(M1, M2):
@@ -76,13 +103,13 @@ def multiply(M1, M2):
     # if one of the passed arguments is not a list then the user is trying to
     # multiply by a constant
     if isinstance(M1, (int, float)) and is_matrix(M2):
-        result_matrix = new_matrix(M2)
+        result_matrix = create_matrix(M2)
         for row in range(0, len(result_matrix)):
             for col in range(0, len(result_matrix[row])):
                 result_matrix[row][col] *= M1
         return result_matrix
     elif isinstance(M2, (int, float)) and is_matrix(M1):
-        result_matrix = new_matrix(M1)
+        result_matrix = create_matrix(M1)
         for row in range(0, len(result_matrix)):
             for col in range(0, len(result_matrix[row])):
                 result_matrix[row][col] *= M2
@@ -206,7 +233,19 @@ def same_size(matrix_1, matrix_2):
     return True
 
 
-def new_matrix(matrix_1, matrix_2):
+
+def create_matrix(end):
+    position = 0
+    matrix = []
+    for row in range(end[0]+1):
+        matrix.append([])
+        for item in range(end[1]+1):
+            matrix[row].append(position)
+            position += 1
+    return matrix
+
+
+def new_matrix(matrix_1, matrix_2=None):
     if matrix_2 == []:
         changed_matrix = matrix_1[:]
         index = 0
@@ -322,17 +361,6 @@ def count_paths(start, end):
         start = (start_row, start_col)
         count += count_paths(start, end)
         return count
-
-
-def create_matrix(end):
-    position = 0
-    matrix = []
-    for row in range(end[0]+1):
-        matrix.append([])
-        for item in range(end[1]+1):
-            matrix[row].append(position)
-            position += 1
-    return matrix
 
 #
 # def return_paths_helper(start_row, start_col, end_row, end_col, matrix):

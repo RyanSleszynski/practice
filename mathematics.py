@@ -4,7 +4,13 @@ import strings_dictionaries
 import sorting
 
 
-def is_prime(whole_number):
+def is_prime(whole_number: int):
+    """
+    Returns whether a given number is prime
+
+    :param whole_number: positive integer
+    :return: Boolean
+    """
     # Returns True if whole_number is prime and False if not prime
     divisor = 2
 
@@ -19,6 +25,13 @@ def is_prime(whole_number):
 
 
 def is_prime_range(p, q):
+    """
+    Returns all the prime numbers in a range of numbers
+
+    :param p: positive integer less than q
+    :param q: positive integer greater than p
+    :return: list of integers
+    """
     result = []
     for number in range(p, q + 1):
         for divisor in range(2, int(math.sqrt(number))+1):
@@ -37,8 +50,13 @@ def my_sum(list_of_items):
     return accumulator
 
 
-def factorial(whole_number):
+def factorial(whole_number: int):
+    """
+    Returns the factorial calculation of a given number
 
+    :param whole_number: a positive integer or zero
+    :return: integer
+    """
     # Special case
     if whole_number == 0:
         return 1
@@ -68,7 +86,7 @@ def combinations(list):
 
 def find_bill_combos():
     """
-    This function finds combinations of bills that add to a specific sum. Input handling is included in the function
+    This function finds combinations of numbers that add to a specific sum. Input handling is included in the function
     """
     wanted_characters = '0123456789. '
     bill_list = []
