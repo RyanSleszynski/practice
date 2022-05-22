@@ -1,6 +1,7 @@
 import random
 import time
 import mathematics
+import sorting
 import helpers_recursive
 
 
@@ -34,7 +35,7 @@ def time_test(file_name, function_name):
             total_time_taken_current_trial = 0
             for trial in range(number_of_trials_per_input):  # now run multiple times for every input
                 start_time = time.time()
-                helpers.is_prime(item)
+                mathematics.is_prime(item)
                 end_time = time.time()
                 time_taken_current_trial = end_time - start_time
                 total_time_taken_current_trial = total_time_taken_current_trial + time_taken_current_trial
@@ -53,7 +54,7 @@ def time_test(file_name, function_name):
             total_time_taken_current_trial = 0
             for trial in range(number_of_trials_per_input):  # now run multiple times for every input
                 start_time = time.time()
-                helpers.my_sum(item)
+                mathematics.my_sum(item)
                 end_time = time.time()
                 time_taken_current_trial = end_time - start_time
                 total_time_taken_current_trial = total_time_taken_current_trial + time_taken_current_trial
@@ -73,7 +74,7 @@ def time_test(file_name, function_name):
             total_time_taken_current_trial = 0
             for trial in range(number_of_trials_per_input):  # now run multiple times for every input
                 start_time = time.time()
-                helpers.sort(item_list, item_order)
+                sorting.sort(item_list, item_order)
                 end_time = time.time()
                 time_taken_current_trial = end_time - start_time
                 total_time_taken_current_trial = total_time_taken_current_trial + time_taken_current_trial
@@ -93,7 +94,7 @@ def time_test(file_name, function_name):
             total_time_taken_current_trial = 0
             for trial in range(number_of_trials_per_input):  # now run multiple times for every input
                 start_time = time.time()
-                helpers.sort_using_min_max(item_list, item_order)
+                sorting.sort_using_min_max(item_list, item_order)
                 end_time = time.time()
                 time_taken_current_trial = end_time - start_time
                 total_time_taken_current_trial = total_time_taken_current_trial + time_taken_current_trial
