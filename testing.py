@@ -4,7 +4,6 @@ import mathematics
 import sorting
 import helpers_recursive
 
-
 def instance_input(data_type, data_type_2=""):
     max_value = 100
     # Setting the seed to make sure that the same random list is generated every time with the same parameters
@@ -22,7 +21,7 @@ def time_test(file_name, function_name):
     number_of_trials = 10  # you can change this number to make the testing faster.
     number_of_trials_per_input = 10
 
-    if file_name == "helpers" and function_name == "is_prime":
+    if file_name == "mathematics" and function_name == "is_prime":
 
 
         print("Instancing input...")
@@ -62,7 +61,7 @@ def time_test(file_name, function_name):
         print('Average time taken by', str(function_name) + ":", total_time_taken / number_of_trials)
         return print(function_name, "time trials end.")
 
-    elif file_name == "helpers" and function_name == "sort":
+    elif file_name == "sorting" and function_name == "sort":
         print("Instancing input...")
         input_list = instance_input("list", "int")
         input_list_order = [random.choice(["asc", "desc"]) for i in range(number_of_trials)]
@@ -74,7 +73,7 @@ def time_test(file_name, function_name):
             total_time_taken_current_trial = 0
             for trial in range(number_of_trials_per_input):  # now run multiple times for every input
                 start_time = time.time()
-                sorting.sort(item_list, item_order)
+                sorting.merge_sort(item_list, item_order)
                 end_time = time.time()
                 time_taken_current_trial = end_time - start_time
                 total_time_taken_current_trial = total_time_taken_current_trial + time_taken_current_trial
@@ -82,7 +81,7 @@ def time_test(file_name, function_name):
 
         print('Average time taken by', str(function_name) + ":", total_time_taken / number_of_trials)
 
-    elif file_name == "helpers" and function_name == "sort_using_min_max":
+    elif file_name == "sorting" and function_name == "sort_using_min_max":
         print("Instancing input...")
         input_list = instance_input("list", "int")
         input_list_order = [random.choice(["asc", "desc"]) for i in range(number_of_trials)]

@@ -85,29 +85,36 @@ def combinations(list):
     pass
 
 
-def find_combos(iterable, key=-2):
+def find_combos(iterable):
     """
     This function finds combinations of numbers that add to a specific sum.
     """
+    combo_dict = {}
 
-    if key == -len(iterable) - 1:
-        return combo_dict
-    else:
-        # combo_dict[iterable[key]] = [[iterable[key] for combo in value]for key, value in combo_dict]
-        temp = []
-        for key, value in combo_dict:
-            for combo in value:
-                temp.append(combo)
-        combo_dict[iterable[key]] = temp
-        find_combos(iterable, key-1)
+    def get_combos_at_key(key=-1):
+        if key == -len(iterable) - 1:
+            return combo_dict
+        else:
+            # combo_dict[iterable[key]] = [[iterable[key] for combo in value]for key, value in combo_dict]
+            temp = []
+            for item in temp:
+                item.append(iterable[key])
+            combo_dict[iterable[key]] = temp
+
+            for index, value in combo_dict.items():
+                for combo in value:
+                    combo_dict[iterable[key]].append(combo)
+
+
+            combo_dict[iterable[key]] = temp
+            get_combos_at_key(key-1)
+    def add_combos():
+        pass
 
 
 if __name__ == "__main__":
     input = [21,17,12,5,3,2,1]
-    global combo_dict
-    combo_dict = dict()
     possible_combinations = []
-    combo_dict[input[-1]] = [input[-1]]
     print(find_combos([21,17,12,5,3,2,1]))
     # # Test Cases for is_prime-------------------------------------------------
     # if not is_prime(9):

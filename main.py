@@ -28,9 +28,3 @@ import mathematics
 # wanted_sum = input('What is the sum you are looking for?\n')
 # wanted_sum = strings_dictionaries.preprocessing(wanted_sum, wanted_characters)
 # wanted_sum = float(wanted_sum)
-
-global possible_combinations
-
-if __name__ == '__main__':
-    possible_combinations = dict()
-    mathematics.find_combos('1234')
