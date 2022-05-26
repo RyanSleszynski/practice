@@ -102,6 +102,7 @@ def find_combos(iterable, method, wanted_sum):
                     counter += 1
                     for combo in value:
                         counter += 1
+                        # we are appending a tuple because of a problem with mutability of lists.
                         temp.append(tuple(list(combo) + [iterable[item_index]]))
                 combo_dict[iterable[item_index]] = [(iterable[item_index],)] + temp
             else:
@@ -121,12 +122,13 @@ def find_combos(iterable, method, wanted_sum):
             return True, possible_combinations
     return combo_dict
 
+
 if __name__ == "__main__":
-    input = [111,100,96,54,32,21,17,12,5,3,2,1]
+    input = [122,121,120,119,118,117,116,115,114,113,112,111,100,96,54,32,21,17,12,5,3,2,1]
     start = time.time()
-    input_combos = find_combos(input,'sum', 118)
+    input_combos = find_combos(input,'sum', 89)
     end = time.time()
-    print(f'Time taken: {(end - start) * 100}')
+    print(f'Time taken: {(end - start)} seconds')
     print(input_combos[1])
 
     # # Test Cases for is_prime-------------------------------------------------

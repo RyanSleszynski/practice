@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b01e8500-d6f5-4b93-a8d6-7e86196860cb" name="Changes" comment="- trying to get combos to work">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="b01e8500-d6f5-4b93-a8d6-7e86196860cb" name="Changes" comment="- completed combos but I believe it needs to be restructured">
       <change beforePath="$PROJECT_DIR$/mathematics.py" beforeDir="false" afterPath="$PROJECT_DIR$/mathematics.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -150,7 +149,14 @@
       <option name="project" value="LOCAL" />
       <updated>1653335761757</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="- completed combos but I believe it needs to be restructured">
+      <created>1653529194212</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1653529194212</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -168,17 +174,7 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="- fixing files" />
     <MESSAGE value="- trying to get combos to work" />
-    <option name="LAST_COMMIT_MESSAGE" value="- trying to get combos to work" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/mathematics.py</url>
-          <line>130</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="- completed combos but I believe it needs to be restructured" />
+    <option name="LAST_COMMIT_MESSAGE" value="- completed combos but I believe it needs to be restructured" />
   </component>
 </project>
