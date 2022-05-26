@@ -2,7 +2,7 @@ import math
 from math import sqrt
 import strings_dictionaries
 import sorting
-
+import time
 
 
 def is_prime(whole_number: int):
@@ -85,37 +85,50 @@ def combinations(list):
     pass
 
 
-def find_combos(iterable):
+def find_combos(iterable, method, wanted_sum):
     """
     This function finds combinations of numbers that add to a specific sum.
     """
     combo_dict = {}
 
-    def get_combos_at_key(key=-1):
-        if key == -len(iterable) - 1:
-            return combo_dict
+    def get_combos():
+        counter = 0
+        for item_index in range(len(iterable)-1, -1, -1):
+            counter += 1
+            if len(combo_dict) >= 1:
+                temp = []
+                # This loop takes all previous entries and adds them to the current entry for later processing
+                for key, value in combo_dict.items():
+                    counter += 1
+                    for combo in value:
+                        counter += 1
+                        temp.append(tuple(list(combo) + [iterable[item_index]]))
+                combo_dict[iterable[item_index]] = [(iterable[item_index],)] + temp
+            else:
+                combo_dict[iterable[item_index]] = [(iterable[item_index],)]
+        print('iterations:', counter)
+
+    if method == 'sum':
+        get_combos()
+        possible_combinations = []
+        for value in combo_dict.values():
+            for combo in value:
+                if sum(combo) == wanted_sum:
+                    possible_combinations.append(combo)
+        if len(possible_combinations) == 0:
+            return False, 'Sorry we couldn\'t find any combinations.'
         else:
-            # combo_dict[iterable[key]] = [[iterable[key] for combo in value]for key, value in combo_dict]
-            temp = []
-            for item in temp:
-                item.append(iterable[key])
-            combo_dict[iterable[key]] = temp
-
-            for index, value in combo_dict.items():
-                for combo in value:
-                    combo_dict[iterable[key]].append(combo)
-
-
-            combo_dict[iterable[key]] = temp
-            get_combos_at_key(key-1)
-    def add_combos():
-        pass
-
+            return True, possible_combinations
+    return combo_dict
 
 if __name__ == "__main__":
-    input = [21,17,12,5,3,2,1]
-    possible_combinations = []
-    print(find_combos([21,17,12,5,3,2,1]))
+    input = [111,100,96,54,32,21,17,12,5,3,2,1]
+    start = time.time()
+    input_combos = find_combos(input,'sum', 118)
+    end = time.time()
+    print(f'Time taken: {(end - start) * 100}')
+    print(input_combos[1])
+
     # # Test Cases for is_prime-------------------------------------------------
     # if not is_prime(9):
     #     print("Passed is_prime(9)")
