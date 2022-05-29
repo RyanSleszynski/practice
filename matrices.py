@@ -141,12 +141,12 @@ def multiply(M1, M2):
         raise ValueError('multiply ValueError: These matrices cannot be multiplied.')
 
 
-# number of iterations: num_rows * num_cols <please fill this else marks shall be deducted>
+# number of iterations: num_rows * num_cols
 def transpose(M):
     if is_matrix(M):
         num_rows = len(M)
         num_cols = len(M[0])
-        tp_matrix = [[None for _ in range(num_rows)] for _ in range(num_cols)]  # create new matrix with null values in each row and col
+        tp_matrix = [[None for _ in range(num_rows)] for _ in range(num_cols)]
         for j in range(num_rows):
             for i in range(num_cols):
                 tp_matrix[i][j] = M[j][i]  # new matrix rows equal original matrix columns
@@ -168,7 +168,7 @@ def transpose_matrix(matrix):
     return matrix
 
 
-# number of iterations: len(row_with_most_columns) * len(M) <please fill this else marks shall be deducted>
+# number of iterations: len(row_with_most_columns) * len(M)
 def transposeLoL(M):
     two_dimensional_check(M)
     T = []
@@ -231,7 +231,6 @@ def same_size(matrix_1, matrix_2):
 
     # if the function gets to this point that means the matrices are the same size
     return True
-
 
 
 def create_matrix(end):
@@ -424,75 +423,6 @@ def return_paths(start, end):
         list_of_paths.append(return_paths(start, end))
         for item in list_of_paths:
             item = str((start_row - 1) * (end[1] + 1) + (start_col - 1)) + item
-
-    # # Alternate Solution
-    # # # here we are assigning the values from start to variables because
-    # # # it is passed as a tuple thus it is editable
-    # start_row = start[0]
-    # start_col = start[1]
-    # list_of_paths = []
-    # # Base Case: if the "starting point" is the "ending point" then break
-    # # recursion and return a 1 indicating a single path
-    # if start_row == end[0] and start_col == end[1]:
-    #     return str((end[0] * (end[1] + 1)) + end[1])
-    #
-    # # Recursive Case 1: if the robot is in the last row but not in the last column
-    # # then call the function again from a new starting point one column to the right of where
-    # # the robot is currently
-    # elif start_row == end[0] and start_col != end[1]:
-    #     start_col += 1
-    #     start = (start_row, start_col)
-    #     return str((start_row * (end[1] + 1)) + (start_col - 1)) + return_paths(start, end)
-    #
-    # # Recursive Case 2: If the robot is in the last column but not in the last row
-    # # then call the function again from a new starting point one row below where it is currently
-    # elif start_row != end[0] and start_col == end[1]:
-    #     start_row += 1
-    #     start = (start_row, start_col)
-    #     return str((((start_row - 1) * (end[1] + 1)) + start_col)) + return_paths(start, end)
-    #
-    # # Recursive Case 3: If the robot is not in the last column and not in the last row then
-    # # check all possible routes from that point by going down one row first, then one column, then diagonal
-    # else:
-    #     start_row += 1
-    #     start = (start_row, start_col)
-    #     # list_of_paths.append(str((start_row - 1) * (end[1] + 1) + start_col) + return_paths(start, end))
-    #     list_of_paths.append(return_paths(start, end))
-    #     start_col += 1
-    #     start = (start_row, start_col)
-    #     # list_of_paths.append(str(start_row * (end[1] + 1) + (start_col - 1)) + return_paths(start, end))
-    #     list_of_paths.append(return_paths(start, end))
-    #     start_row -= 1
-    #     start = (start_row, start_col)
-    #     # list_of_paths.append(str((start_row - 1) * (end[1] + 1) + (start_col - 1)) + return_paths(start, end))
-    #     list_of_paths.append(return_paths(start, end))
-    #     if start_row == 0 and start_col - 1 == 0:
-    #         return str(' ' + list_of_paths[0] + ' ' + list_of_paths[1] + ' ' + list_of_paths[2]).replace(' ', ' ' + str(
-    #             start_row * (end[1] + 1) + (start_col - 1)))
-    #     else:
-    #         return str(' ' + list_of_paths[0] + ' ' + list_of_paths[1] + ' ' + list_of_paths[2]).replace(' ', ' ' + str(
-    #             start_row * (end[1] + 1) + (start_col - 1)))
-
-
-####################
-##### OPTIONAL #####
-####################
-# The following function is similar to count_paths but with the following change
-# The robot will be able to take either 1 or 2 steps in the bottom, right, and diagonal (bottom-right) directions
-def count_paths_12(start, end):
-    # <feel free to write helper functions if you need to>
-    pass
-
-# The following function is similar to return_paths but with the following change
-# The robot will be able to take either 1 or 2 steps in the bottom, right, and diagonal (bottom-right) directions
-
-
-def return_paths_12(start, end):
-    # <feel free to write helper functions if you need to>
-    # This is same as count_paths_12 but with the expectation that you will either
-    # print or return the list of all possible paths
-    # just return the list_of_paths, the number of paths would be just len(list_of_paths)
-    pass
 
 
 if __name__ == "__main__":

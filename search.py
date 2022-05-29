@@ -25,7 +25,7 @@ def binary_search_iterative(input_list, key):
     min_index = 0
     max_index = len(input_list) - 1
 
-    if sorting.is_sorted(input_list, 'asc') == True:
+    if sorting.is_sorted(input_list, 'asc'):
         if key > input_list[max_index] or key < input_list[min_index]:
             return False
         else:
@@ -38,14 +38,8 @@ def binary_search_iterative(input_list, key):
                 elif key < input_list[mid_index]:
                     max_index = mid_index - 1
             return False
-    #else:
-       # raise ValueError("List not sorted")
-
-    # The input_list must be sorted
-    # this function searches for the "key" and in the "input_list"
-    # returns True if the "key" was found, False otherwise
-    # return True
-    # always found
+    # else:
+        # raise ValueError("List not sorted")
 
 
 def binary_search_helper(input_list, key, min_index, mid_index, max_index):
@@ -58,10 +52,6 @@ def binary_search_helper(input_list, key, min_index, mid_index, max_index):
     else:
         return binary_search_helper(input_list, key, min_index, ((mid_index - 1) + min_index) // 2, mid_index - 1)
 
-# Added a new helper function for recursive part
-# It checks against the conditions of the binary search
-# This was done to keep track of the values such as mid, max and min in a recursive way, since we can not change perimeters of the actual function.
-# Rest is similar to the iterative part
 
 
 def binary_search_recursive(input_list, key):
@@ -71,11 +61,6 @@ def binary_search_recursive(input_list, key):
         return binary_search_helper(input_list, key, 0, len(input_list) // 2, len(input_list) - 1)
    # else:
     #    raise ValueError("List is not sorted")
-
-    # The input_list must be sorted
-    # this function searches for the "key" and in the "input_list"
-    # returns True if the "key" was found, False otherwise
-    #return True  # always found
 
 
 if __name__ == "__main__":

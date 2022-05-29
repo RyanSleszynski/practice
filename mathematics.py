@@ -11,19 +11,15 @@ def is_prime(whole_number: int):
     Returns whether a given number is prime
 
     :param whole_number: positive integer
-    :return: Boolean
+    :return: True if whole_number is prime, False if whole_number is NOT prime
     """
-    # Returns True if whole_number is prime and False if not prime
-    divisor = 2
 
-    if whole_number == 2:
-        return True
-    while whole_number % divisor != 0 and divisor < sqrt(whole_number):
-        divisor += 1
-    if divisor > sqrt(whole_number):
-        return True
-    else:
-        return False
+    if whole_number < 0:
+        raise ValueError('ValueError: argument should be non-negative.')
+    for divisor in range(2, sqrt(whole_number).__floor__() + 1):
+        if whole_number % divisor == 0:
+            return False
+    return True
 
 
 def is_prime_range(p, q):
@@ -34,6 +30,7 @@ def is_prime_range(p, q):
     :param q: positive integer greater than p
     :return: list of integers
     """
+
     result = []
     for number in range(p, q + 1):
         for divisor in range(2, int(math.sqrt(number))+1):
@@ -71,68 +68,68 @@ def factorial(whole_number: int):
     return accumulator
 
 
-def combinations(list):
-    original_list = list[:]
-    temp_list = original_list[:]
-    list_size = len(list)
-    print(original_list)
-    combination_count = 1
-    while list_size >= 0:
-        ignored_index = 0
-        while ignored_index < len(temp_list):
-            print(temp_list[0:ignored_index] + temp_list[ignored_index+1:])
-            ignored_index += 1
-            combination_count += 1
+def combinations():
     pass
 
 
-def find_combos(iterable, method, wanted_sum):
+def get_combos(iterable):
     """
-    This function finds combinations of numbers that add to a specific sum.
+    Gets all possible combinations of an iterable using iteration.
+
+    Method description -- Starting with the last item in the iterable a single combination is made and all
+    subsequent combinations are based on all previously calculated combinations
+
+    :param iterable: iterable object
+    :return: a dictionary(hash table) of all possible combinations
     """
     combo_dict = {}
+    for item_index in range(len(iterable)-1, -1, -1):
+        if len(combo_dict) >= 1:
+            temp = []
+            # This loop takes all previous entries and adds them to the current entry for later processing
+            for key, value in combo_dict.items():
+                for combo in value:
+                    # we are appending a tuple because of a problem with mutability of lists.
+                    temp.append(tuple(list(combo) + [iterable[item_index]]))
+            combo_dict[iterable[item_index]] = [(iterable[item_index],)] + temp
 
-    def get_combos():
-        counter = 0
-
-        for item_index in range(len(iterable)-1, -1, -1):
-            counter += 1
-            if len(combo_dict) >= 1:
-                temp = []
-                # This loop takes all previous entries and adds them to the current entry for later processing
-                for key, value in combo_dict.items():
-                    counter += 1
-                    for combo in value:
-                        counter += 1
-                        # we are appending a tuple because of a problem with mutability of lists.
-                        temp.append(tuple(list(combo) + [iterable[item_index]]))
-                combo_dict[iterable[item_index]] = [(iterable[item_index],)] + temp
-
-                # The way this is programmed the temp list is not overwritten in memory, so we delete it here
-                # to free up memory
-                del temp
-            else:
-                combo_dict[iterable[item_index]] = [(iterable[item_index],)]
-        print('iterations:', counter)
-
-    if method == 'sum':
-        get_combos()
-        possible_combinations = [combo for value in combo_dict.values() for combo in value if sum(combo) == wanted_sum]
-        if len(possible_combinations) == 0:
-            return False, 'Sorry we couldn\'t find any combinations.'
+            # The way this is programmed the temp list is not overwritten in memory, so we delete it here
+            # to free up memory
+            del temp
         else:
-            return True, possible_combinations
+            combo_dict[iterable[item_index]] = [(iterable[item_index],)]
     return combo_dict
 
 
+def combo_sums(combo_dict, wanted_sum):
+    """
+    Finds combinations that sum to a given number
+
+    :param  combo_dict: a dictionary of combinations where key=a value in the original iterable
+        value=two-dimensional iterable
+    :param  wanted_sum: a number you want the combinations to sum to
+
+    :returns: list of tuples
+    """
+    possible_combinations = [combo for value in combo_dict.values() for combo in value if sum(combo) == wanted_sum]
+
+    return possible_combinations
+
+
 if __name__ == "__main__":
-    input = [127,125,124,122,120,115,112,111,100,96,54,32,21,17,12,5,3,2,1]
+    input = [100,96,54,32,21,17,12,5,3,2,1]
     print(f'Number of items: {len(input)}')
     start = time.time()
-    input_combos = find_combos(input,'sum', 89)
+    input_combos = get_combos(input)
     end = time.time()
-    print(f'Time taken: {(end - start)} seconds')
-    for combo_num, combo in enumerate(input_combos[1], start=1):
+    print(f'Time taken to generate all combinations: {(end - start)} seconds')
+
+    start = time.time()
+    input_combo_sum = combo_sums(input_combos, 15)
+    end = time.time()
+    print(f'Time taken to find sums: {(end - start)} seconds')
+
+    for combo_num, combo in enumerate(input_combo_sum, start=1):
         print(f'Combination number {combo_num}: {combo}')
 
     # # Test Cases for is_prime-------------------------------------------------
@@ -141,10 +138,10 @@ if __name__ == "__main__":
     # else:
     #     print("Failed is_prime(9)")
     #
-    # if is_prime(113):
-    #     print("Passed is_prime(113)")
+    # if is_prime(2):
+    #     print("Passed is_prime(2)")
     # else:
-    #     print("Failed is_prime(113)")
+    #     print("Failed is_prime(2)")
     #
     # Test Cases for factorial-------------------------------------------------
     # if factorial(3) == 6:

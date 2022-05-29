@@ -35,21 +35,15 @@ def is_sorted(list_of_elements, order):
     # This function is faster than the is_sorted function which uses for loops instead of while
     # when the passed list is not sorted.
     if order == "ascending" or order == "asc":
-        index = 0
-        while index < len(list_of_elements) - 1:
-            if list_of_elements[index] > list_of_elements[index + 1]:
+        for item_index in range(len(list_of_elements)-1):
+            if list_of_elements[item_index] > list_of_elements[item_index + 1]:
                 return False
-            else:
-                index += 1
         return True
 
     elif order == "descending" or order == "desc":
-        index = 0
-        while index < len(list_of_elements) - 1:
-            if list_of_elements[index] < list_of_elements[index + 1]:
+        for item_index in range(len(list_of_elements) - 1):
+            if list_of_elements[item_index] < list_of_elements[item_index + 1]:
                 return False
-            else:
-                index += 1
         return True
 
 
@@ -84,9 +78,6 @@ def bubble_sort(list_of_items, order):
     # Function will return a given list in an ordered list either ascending or descending
     # The flag variable remains False until the list has finished sorting
     max_index = len(list_of_items) - 1
-    passes = 0
-    comparisons = 0
-    swap = 0
     if order == "ascending" or order == "asc":
         sorted_flag = False
         while sorted_flag is False:
@@ -98,10 +89,7 @@ def bubble_sort(list_of_items, order):
                     list_of_items[index + 1] = list_of_items[index] ^ list_of_items[index + 1]
                     list_of_items[index] = list_of_items[index] ^ list_of_items[index + 1]
                     sorted_flag = False
-                    swap += 1
-                comparisons += 1
                 index += 1
-            passes += 1
             max_index -= 1
 
     elif order == "descending" or order == "desc":
@@ -117,8 +105,6 @@ def bubble_sort(list_of_items, order):
                     sorted_flag = False
                 index += 1
             max_index -= 1
-    print(f'passes: {passes}, comparisons: {comparisons}, swaps {swap}')
-    del passes, comparisons, swap
     return list_of_items
 
 
@@ -136,9 +122,6 @@ def new_bubble_sort(list):
     """
     maximum_right_index = len(list) - 1
     minimum_left_index = 0
-    comparisons = 0
-    swap = 0
-    back_and_forth = 0
     while minimum_left_index < maximum_right_index:
         index = minimum_left_index
         while index < maximum_right_index:
@@ -146,8 +129,6 @@ def new_bubble_sort(list):
                 list[index] = list[index] ^ list[index + 1]
                 list[index + 1] = list[index] ^ list[index + 1]
                 list[index] = list[index] ^ list[index + 1]
-                swap += 1
-            comparisons += 1
             index += 1
 
         maximum_right_index -= 1
@@ -156,12 +137,8 @@ def new_bubble_sort(list):
                 list[index] = list[index] ^ list[index - 1]
                 list[index - 1] = list[index] ^ list[index - 1]
                 list[index] = list[index] ^ list[index - 1]
-                swap += 1
             index -= 1
-            comparisons += 1
         minimum_left_index += 1
-        back_and_forth += 1
-    print(f'back and forth: {back_and_forth}, comparisons: {comparisons}, swaps {swap}')
     return list
 
 
@@ -339,4 +316,4 @@ def counting_sort(input_list):
 
 
 if __name__ == "__main__":
-    pass
+    print(find_min_max([1,6,78,1,5], 'min'))
