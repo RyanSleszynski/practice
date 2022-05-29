@@ -3,6 +3,7 @@ from math import sqrt
 import strings_dictionaries
 import sorting
 import time
+import sys
 
 
 def is_prime(whole_number: int):
@@ -93,6 +94,7 @@ def find_combos(iterable, method, wanted_sum):
 
     def get_combos():
         counter = 0
+
         for item_index in range(len(iterable)-1, -1, -1):
             counter += 1
             if len(combo_dict) >= 1:
@@ -105,17 +107,17 @@ def find_combos(iterable, method, wanted_sum):
                         # we are appending a tuple because of a problem with mutability of lists.
                         temp.append(tuple(list(combo) + [iterable[item_index]]))
                 combo_dict[iterable[item_index]] = [(iterable[item_index],)] + temp
+
+                # The way this is programmed the temp list is not overwritten in memory, so we delete it here
+                # to free up memory
+                del temp
             else:
                 combo_dict[iterable[item_index]] = [(iterable[item_index],)]
         print('iterations:', counter)
 
     if method == 'sum':
         get_combos()
-        possible_combinations = []
-        for value in combo_dict.values():
-            for combo in value:
-                if sum(combo) == wanted_sum:
-                    possible_combinations.append(combo)
+        possible_combinations = [combo for value in combo_dict.values() for combo in value if sum(combo) == wanted_sum]
         if len(possible_combinations) == 0:
             return False, 'Sorry we couldn\'t find any combinations.'
         else:
@@ -124,12 +126,14 @@ def find_combos(iterable, method, wanted_sum):
 
 
 if __name__ == "__main__":
-    input = [122,121,120,119,118,117,116,115,114,113,112,111,100,96,54,32,21,17,12,5,3,2,1]
+    input = [127,125,124,122,120,115,112,111,100,96,54,32,21,17,12,5,3,2,1]
+    print(f'Number of items: {len(input)}')
     start = time.time()
     input_combos = find_combos(input,'sum', 89)
     end = time.time()
     print(f'Time taken: {(end - start)} seconds')
-    print(input_combos[1])
+    for combo_num, combo in enumerate(input_combos[1], start=1):
+        print(f'Combination number {combo_num}: {combo}')
 
     # # Test Cases for is_prime-------------------------------------------------
     # if not is_prime(9):
