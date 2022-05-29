@@ -11,15 +11,6 @@ def linear_search_iterative(input_list, key):
     return False
 
 
-def linear_search_recursive(input_list, key):
-    if len(input_list) == 0:
-        return False
-    elif input_list[0] == key:
-        return True
-    else:
-        return linear_search_recursive(input_list[1:], key)
-
-
 def binary_search_iterative(input_list, key):
 
     min_index = 0
@@ -69,11 +60,6 @@ if __name__ == "__main__":
         print("Passed linear_search_iterative")
     else:
         print('Failed')
-
-    if linear_search_recursive(L, 99):
-        print("Passed linear_search_recursive")
-    else:
-        print('Failed linear_search_recursive')
 
     L = sorting.merge_sort(L, 'asc')
 

@@ -1,5 +1,3 @@
-
-
 def find_min_max(list_of_items, min_or_max):
     # This function will return a minimum number or maximum number depending on the second argument
     # Errors will be raised if list_of_items is null or if min_or_max is NOT "min" or "max"
