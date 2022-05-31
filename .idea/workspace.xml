@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b01e8500-d6f5-4b93-a8d6-7e86196860cb" name="Changes" comment="- rewrote is_prime &#10;- rewrote get_combos to be separate inner functions&#10;- rewrote combo_sums" />
+    <list default="true" id="b01e8500-d6f5-4b93-a8d6-7e86196860cb" name="Changes" comment="- rewrote is_prime &#10;- rewrote get_combos to be separate inner functions&#10;- rewrote combo_sums">
+      <change beforePath="$PROJECT_DIR$/mathematics.py" beforeDir="false" afterPath="$PROJECT_DIR$/mathematics.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,7 +40,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.sorting">
+  <component name="RunManager" selected="Python.mathematics">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="tools" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -125,8 +127,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.sorting" />
         <item itemvalue="Python.mathematics" />
+        <item itemvalue="Python.sorting" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.testing" />
       </list>

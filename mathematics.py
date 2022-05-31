@@ -82,22 +82,12 @@ def get_combos(iterable):
     :param iterable: iterable object
     :return: a dictionary(hash table) of all possible combinations
     """
-    combo_dict = {}
-    for item_index in range(len(iterable)-1, -1, -1):
-        if len(combo_dict) >= 1:
-            temp = []
-            # This loop takes all previous entries and adds them to the current entry for later processing
-            for key, value in combo_dict.items():
-                for combo in value:
-                    # we are appending a tuple because of a problem with mutability of lists.
-                    temp.append(tuple(list(combo) + [iterable[item_index]]))
-            combo_dict[iterable[item_index]] = [(iterable[item_index],)] + temp
+    combo_dict = {iterable[-1]: [(iterable[-1],)]}
+    for item_index in range(len(iterable)-2, -1, -1):
+        # This loop takes all previous entries and adds them to the current entry for later processing
+        # we are appending a tuple because of a problem with mutability of lists.
+        combo_dict[iterable[item_index]] = [(iterable[item_index],)] + [tuple(list(combo) + [iterable[item_index]]) for value in combo_dict.values() for combo in value]
 
-            # The way this is programmed the temp list is not overwritten in memory, so we delete it here
-            # to free up memory
-            del temp
-        else:
-            combo_dict[iterable[item_index]] = [(iterable[item_index],)]
     return combo_dict
 
 
@@ -117,8 +107,9 @@ def combo_sums(combo_dict, wanted_sum):
 
 
 if __name__ == "__main__":
-    input = [100,96,54,32,21,17,12,5,3,2,1]
+    input = [120,117,114,110, 108, 106, 104,100,96,54,32,21,17,12,5,3,2,1]
     print(f'Number of items: {len(input)}')
+
     start = time.time()
     input_combos = get_combos(input)
     end = time.time()
