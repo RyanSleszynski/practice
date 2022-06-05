@@ -1,4 +1,5 @@
 import math
+import itertools
 from math import sqrt
 import strings_dictionaries
 import sorting
@@ -33,10 +34,10 @@ def is_prime_range(p, q):
 
     result = []
     for number in range(p, q + 1):
-        for divisor in range(2, int(math.sqrt(number))+1):
+        for divisor in range(2, int(math.sqrt(number)) + 1):
             if number % divisor == 0:
                 break
-            elif divisor > math.sqrt(number)-1:
+            elif divisor > math.sqrt(number) - 1:
                 result.append(number)
 
     return result
@@ -68,11 +69,7 @@ def factorial(whole_number: int):
     return accumulator
 
 
-def combinations():
-    pass
-
-
-def get_combos(iterable):
+def combinations(iterable):
     """
     Gets all possible combinations of an iterable using iteration.
 
@@ -82,11 +79,15 @@ def get_combos(iterable):
     :param iterable: iterable object
     :return: a dictionary(hash table) of all possible combinations
     """
-    combo_dict = {iterable[-1]: [(iterable[-1],)]}
-    for item_index in range(len(iterable)-2, -1, -1):
+
+    combo_dict = {None: []}
+    for item_index in range(len(iterable) - 1, -1, -1):
         # This loop takes all previous entries and adds them to the current entry for later processing
         # we are appending a tuple because of a problem with mutability of lists.
-        combo_dict[iterable[item_index]] = [(iterable[item_index],)] + [tuple(list(combo) + [iterable[item_index]]) for value in combo_dict.values() for combo in value]
+        combo_dict[iterable[item_index]] = [(iterable[item_index],)] + \
+                                           [tuple(list(combo) + [iterable[item_index]])
+                                            for value in combo_dict.values()
+                                            for combo in value]
 
     return combo_dict
 
@@ -106,22 +107,31 @@ def combo_sums(combo_dict, wanted_sum):
     return possible_combinations
 
 
+def firstn(n):
+    num = 0
+    while num < n:
+        yield num
+        num += 1
+
+
 if __name__ == "__main__":
-    input = [120,117,114,110, 108, 106, 104,100,96,54,32,21,17,12,5,3,2,1]
-    print(f'Number of items: {len(input)}')
-
-    start = time.time()
-    input_combos = get_combos(input)
-    end = time.time()
-    print(f'Time taken to generate all combinations: {(end - start)} seconds')
-
-    start = time.time()
-    input_combo_sum = combo_sums(input_combos, 15)
-    end = time.time()
-    print(f'Time taken to find sums: {(end - start)} seconds')
-
-    for combo_num, combo in enumerate(input_combo_sum, start=1):
-        print(f'Combination number {combo_num}: {combo}')
+    input = [54, 32, 21, 17, 12, 5, 3, 2, 1]
+    # print(f'Number of items: {len(input)}')
+    # start = time.time()
+    # input_combos = combinations(input)
+    # end = time.time()
+    # print(f'Time taken to generate all combinations: {(end - start)} seconds')
+    #
+    # start = time.time()
+    # input_combo_sum = combo_sums(input_combos, 35)
+    # end = time.time()
+    # print(f'Time taken to find sums: {(end - start)} seconds')
+    #
+    # for combo_num, combo in enumerate(input_combo_sum, start=1):
+    #     print(f'Combination number {combo_num}: {combo}')
+    # print(firstn(15).__sizeof__())
+    # print([num for num in range(1,16)].__sizeof__())
+    # print([num for num in range(1,16)])
 
     # # Test Cases for is_prime-------------------------------------------------
     # if not is_prime(9):

@@ -44,11 +44,10 @@ def binary_search_helper(input_list, key, min_index, mid_index, max_index):
         return binary_search_helper(input_list, key, min_index, ((mid_index - 1) + min_index) // 2, mid_index - 1)
 
 
-
 def binary_search_recursive(input_list, key):
     if key > input_list[-1] or key < input_list[0]:
         return False
-    elif sorting.is_sorted(input_list, 'asc') == True:
+    elif sorting.is_sorted(input_list, 'asc'):
         return binary_search_helper(input_list, key, 0, len(input_list) // 2, len(input_list) - 1)
    # else:
     #    raise ValueError("List is not sorted")

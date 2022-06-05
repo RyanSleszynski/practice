@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b01e8500-d6f5-4b93-a8d6-7e86196860cb" name="Changes" comment="- rewrote is_prime &#10;- rewrote get_combos to be separate inner functions&#10;- rewrote combo_sums">
       <change beforePath="$PROJECT_DIR$/mathematics.py" beforeDir="false" afterPath="$PROJECT_DIR$/mathematics.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/search.py" beforeDir="false" afterPath="$PROJECT_DIR$/search.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sorting.py" beforeDir="false" afterPath="$PROJECT_DIR$/sorting.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

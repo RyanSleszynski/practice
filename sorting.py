@@ -2,7 +2,6 @@ def find_min_max(list_of_items, min_or_max):
     # This function will return a minimum number or maximum number depending on the second argument
     # Errors will be raised if list_of_items is null or if min_or_max is NOT "min" or "max"
     # A for loop and a while loop are used to show possibility of either returning correct results
-    index = 1
     if len(list_of_items) == 0:
         raise ValueError("Null set has no min or max")
 
@@ -22,7 +21,6 @@ def find_min_max(list_of_items, min_or_max):
         for index_value in list_of_items:
             if maximum < index_value:
                 maximum = index_value
-            index += 1
         return maximum
 
     else:
